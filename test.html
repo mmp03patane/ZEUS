@@ -1,1 +1,125 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Hero Section</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for animation */
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-100%); /* Start off-screen left */
+            }
+            100% {
+                transform: translateX(calc(100vw + 100%)); /* End off-screen right, accounting for image width */
+            }
+        }
+
+        .animate-slide-right {
+            animation: slideRight 15s linear infinite; /* Adjust duration as needed */
+        }
+
+        /* Ensure the hero section covers the full width and height for a good hero effect */
+        .hero-section {
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+            position: relative; /* Needed for absolute positioning of overlay */
+            overflow: hidden; /* Hide parts of the animated image that go off-screen */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <header class="bg-white shadow-md p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">My Website</a>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Services</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section
+            class="hero-section relative h-screen flex items-center justify-center text-white"
+            style="background-image: url('https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_cebh3kcebh3kcebh.png?raw=true');"
+        >
+            <!-- Overlay image with animation -->
+            <img
+                src="https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_23gdvh23gdvh23gd-removebg-preview.png?raw=true"
+                alt="Animated Overlay"
+                class="absolute top-1/2 left-0 transform -translate-y-1/2 h-48 md:h-64 lg:h-80 animate-slide-right"
+                onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Error';"
+            >
+
+            <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg shadow-lg max-w-2xl mx-4">
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Welcome to Our Amazing Site</h1>
+                <p class="text-xl md:text-2xl mb-8">Discover a world of possibilities with our innovative solutions.</p>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Learn More
+                </button>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">About Us</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/cccccc/333333?text=About+Image" alt="About Us" class="rounded-lg shadow-md w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 text-lg text-gray-700">
+                        <p class="mb-4">
+                            We are a passionate team dedicated to delivering high-quality solutions that exceed expectations. Our mission is to innovate and provide exceptional value to our clients.
+                        </p>
+                        <p>
+                            With years of experience in the industry, we pride ourselves on our commitment to excellence and customer satisfaction. We believe in building strong relationships and fostering a collaborative environment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">Web Development</h3>
+                        <p class="text-gray-700">Building responsive and modern web applications tailored to your needs.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">UI/UX Design</h3>
+                        <p class="text-gray-700">Creating intuitive and engaging user interfaces for optimal experience.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">Digital Marketing</h3>
+                        <p class="text-gray-700">Strategies to boost your online presence and reach a wider audience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 My Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
