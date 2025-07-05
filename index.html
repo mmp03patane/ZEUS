@@ -96,6 +96,7 @@
                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
                         <h3 class="text-2xl font-semibold mb-4">Digital Marketing</h3>
                         <p class="text-gray-700">Strategies to boost your online presence and reach a wider audience.</p>
+                    </p>
                     </div>
                 </div>
             </div>
@@ -126,24 +127,26 @@
             const parallaxFactor = 0.2; // Adjust this value to make it move more or less
 
             // First, set the width of the image to match the text content div
-            // This ensures clientWidth is accurate for the initialOffsetX calculation
+            // This ensures clientWidth is accurate for the initial offset calculation
             parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
 
-            // Define an initial negative offset to start the image completely off-screen to the left.
-            // This value is based on the image's own width plus a small buffer,
-            // ensuring its left edge is not visible initially.
-            const initialOffsetX = -parallaxImage.clientWidth - 50; // Start off-screen to the left
+            // Define the percentage of the image to initially hide on the left
+            const hiddenPercentage = 0.15; // 15% of the image width
 
-            // Calculate the new translateX value, combining the initial offset and the scroll effect.
-            // As scrollAmount increases, translateXValue becomes less negative (moves right).
-            const translateXValue = initialOffsetX + (scrollAmount * parallaxFactor);
+            // Calculate the initial negative offset to hide the specified percentage of the image
+            const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
+
+            // Calculate the translateX value based on scroll, moving it to the right
+            const scrollTranslation = scrollAmount * parallaxFactor;
+
+            // Combine the initial hidden offset with the scroll-based translation
+            const finalTranslateX = initialHiddenOffset + scrollTranslation;
 
             // Apply the transform to the image
-            parallaxImage.style.transform = `translateX(${translateXValue}px)`;
+            parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
 
-            // The image is anchored to the bottom and left-0 via Tailwind classes.
-            // Its horizontal centering will be handled by the translateX value starting from
-            // a point off-screen left and moving right.
+            // The 'left-0' class on the image ensures it's anchored to the left of the hero section,
+            // and the 'overflow: hidden' on the hero section prevents the hidden part from being visible.
         }
 
         // Add a scroll event listener to update the parallax effect
