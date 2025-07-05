@@ -21,13 +21,21 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+
+        /* Custom style for the logo image */
+        .header-logo {
+            height: 40px; /* Adjust height as needed for your desired size */
+            width: auto; /* Maintain aspect ratio */
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
 
     <header class="bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600">My Website</a>
+            <a href="#" class="flex items-center">
+                <img src="http://googleusercontent.com/image_generation_content/4" alt="ZEUS Logo" class="header-logo">
+            </a>
             <ul class="flex space-x-6">
                 <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">About</a></li>
