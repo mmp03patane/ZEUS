@@ -1,104 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Hero Section</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        .hero-section {
-            background: linear-gradient(to bottom, #534b4b, #493F6E, #f9dfd0);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            overflow: hidden;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Hero Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(to bottom, #534b4b, #493F6E, #f9dfd0);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
 
-        .header-logo {
-            height: 40px;
-            width: auto;
+        .header-logo {
+            height: 40px;
+            width: auto;
+        }
+        .workflow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-    </style>
+        .workflow-arrow {
+            font-size: 2rem;
+            color: #4A90E2;
+            margin: 0 10px;
+        }
+        @media (min-width: 768px) {
+            .workflow-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .workflow-arrow {
+                align-self: center;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-    <header class="bg-white shadow-md p-4">
-        <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/zeuscrop.PNG?raw=true" alt="ZEUS Logo" class="header-logo">
-            </a>
-            <ul class="flex space-x-6">
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Product</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Solutions</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Features</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Pricing</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Get Started</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Login</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <header class="bg-white shadow-md p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/zeuscrop.PNG?raw=true" alt="ZEUS Logo" class="header-logo">
+            </a>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Product</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Solutions</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Features</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Pricing</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Get Started</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Login</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <main>
-        <section class="hero-section relative h-screen flex items-center justify-center text-white">
-            <img
-                id="parallax-image"
-                src="https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_23gdvh23gdvh23gd-removebg-preview.png?raw=true"
-                alt="Animated Overlay"
-                class="absolute bottom-0 left-0 w-full max-w-2xl"
-                onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Error';"
-            >
+    <main>
+        <section class="hero-section relative h-screen flex items-center justify-center text-white">
+            <img
+                id="parallax-image"
+                src="https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_23gdvh23gdvh23gd-removebg-preview.png?raw=true"
+                alt="Animated Overlay"
+                class="absolute bottom-0 left-0 w-full max-w-2xl"
+                onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Error';"
+            >
 
-            <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg shadow-lg max-w-2xl mx-4">
-                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">More Reviews. <br>Less Hassle.</h1>
-                <p class="text-xl md:text-2xl mb-4">Automate your Google review requests to grow trust, visibility, and sales.</p>
+            <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg shadow-lg max-w-2xl mx-4">
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">More Reviews. <br>Less Hassle.</h1>
+                <p class="text-xl md:text-2xl mb-4">Automate your Google review requests to grow trust, visibility, and sales.</p>
 
-                <!-- Pricing Line -->
-                <p class="text-lg md:text-xl font-semibold text-white mb-8">
-                    Just <span class="text-yellow-300">$49.99/month</span> — no lock-in contracts. CRM integration included.
-                </p>
+                                <p class="text-lg md:text-xl font-semibold text-white mb-8">
+                    Just <span class="text-yellow-300">$49.99/month</span> — no lock-in contracts. CRM integration included.
+                </p>
 
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mr-2">
-                    Get Started
-                </button>
-                <button class="bg-white hover:bg-gray-100 text-black font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Login
-                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mr-2">
+                    Get Started
+                </button>
+                <button class="bg-white hover:bg-gray-100 text-black font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Login
+                </button>
+            </div>
+        </section>
+
+        <section id="product" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-12">All-In-One Google Review Automation for Local Businesses</h2>
+                
+                <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">Our platform simplifies the process of getting more Google reviews, helping local businesses like yours build trust, improve online visibility, and drive more sales. We handle the heavy lifting so you can focus on what you do best.</p>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-6">Overview: How It Works</h3>
+                        <div class="space-y-6 text-gray-700 text-lg">
+                            <p>Our intuitive platform seamlessly integrates with your existing customer interactions to automatically request Google reviews. Here's a quick breakdown:</p>
+                            <ul class="list-disc list-inside space-y-3">
+                                <li><strong>Customer Interaction:</strong> After a positive customer experience (e.g., service completion, purchase), simply log the interaction in our system or connect your CRM.</li>
+                                <li><strong>Automated Request:</strong> Our platform automatically sends a polite, personalized review request via SMS or email to your customer.</li>
+                                <li><strong>Easy Review Submission:</strong> Customers receive a direct link to leave a Google review, making the process quick and frictionless.</li>
+                                <li><strong>Boost Your Presence:</strong> As reviews come in, your Google My Business profile improves, leading to higher search rankings and more new customers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400?text=App+Screenshot+1" alt="App Screenshot or UI Preview" class="rounded-lg shadow-xl border border-gray-200">
+                    </div>
+                </div>
+
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">Streamlined Workflow</h3>
+                    <div class="workflow-container flex flex-col md:flex-row justify-center items-center p-6 bg-blue-50 rounded-lg shadow-md">
+                        <div class="workflow-step">
+                            <div class="p-4 bg-white rounded-full shadow-lg mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.004 9.004 0 01-7.5-3.5M12 21c-4.418 0-8-4.03-8-9 0-4.418 4.03-8 9-8s9 4.03 9 8-4.03 9-9 9z" />
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-gray-800">Customer Interaction</p>
+                        </div>
+                        <span class="workflow-arrow rotate-90 md:rotate-0">➡️</span>
+                        <div class="workflow-step">
+                            <div class="p-4 bg-white rounded-full shadow-lg mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5zm3-5v5m0 0l-2-2m2 2l2-2" />
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-gray-800">SMS/Email Request</p>
+                        </div>
+                        <span class="workflow-arrow rotate-90 md:rotate-0">➡️</span>
+                        <div class="workflow-step">
+                            <div class="p-4 bg-white rounded-full shadow-lg mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.519-4.674a1 1 0 00-.363-1.118L2.927 9.5c-.783-.57-.381-1.81.588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z" />
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-gray-800">Google Review</p>
+                        </div>
+                        <span class="workflow-arrow rotate-90 md:rotate-0">➡️</span>
+                        <div class="workflow-step">
+                            <div class="p-4 bg-white rounded-full shadow-lg mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-gray-800">Boost SEO & Sales</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div>
+                        <img src="https://via.placeholder.com/600x400?text=App+Screenshot+2" alt="App Screenshot or UI Preview" class="rounded-lg shadow-xl border border-gray-200">
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-6">See the Results</h3>
+                        <p class="text-lg text-gray-700 mb-6">Our platform is designed to deliver tangible results quickly. Businesses using our automation typically see significant improvements in their online reputation:</p>
+                        <ul class="list-disc list-inside space-y-3 text-lg text-gray-700">
+                            <li><strong>30% more reviews in just 2 weeks:</strong> Rapidly increase your review count and overall rating.</li>
+                            <li><strong>Improved local search rankings:</strong> More reviews mean higher visibility in Google search results.</li>
+                            <li><strong>Enhanced customer trust:</strong> A strong review profile builds credibility with potential customers.</li>
+                            <li><strong>Increased sales and leads:</strong> Higher trust and visibility directly translate to more business.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-xl">
+                        Get Started Today!
+                    </a>
+                </div>
             </div>
         </section>
-    </main>
+    </main>
 
-    <script>
-        const parallaxImage = document.getElementById('parallax-image');
-        const heroSection = document.querySelector('.hero-section');
-        const textContentDiv = document.querySelector('.hero-section > div');
+    <script>
+        const parallaxImage = document.getElementById('parallax-image');
+        const heroSection = document.querySelector('.hero-section');
+        const textContentDiv = document.querySelector('.hero-section > div');
 
-        function updateParallaxAndWidth() {
-            const heroRect = heroSection.getBoundingClientRect();
-            const scrollAmount = -heroRect.top;
-            const parallaxFactor = 0.2;
+        function updateParallaxAndWidth() {
+            const heroRect = heroSection.getBoundingClientRect();
+            const scrollAmount = -heroRect.top;
+            const parallaxFactor = 0.2;
 
-            parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
+            parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
 
-            const hiddenPercentage = 0.15;
-            const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
-            const scrollTranslation = scrollAmount * parallaxFactor;
-            const finalTranslateX = initialHiddenOffset + scrollTranslation;
+            const hiddenPercentage = 0.15;
+            const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
+            const scrollTranslation = scrollAmount * parallaxFactor;
+            const finalTranslateX = initialHiddenOffset + scrollTranslation;
 
-            parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
-        }
+            parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
+        }
 
-        window.addEventListener('scroll', updateParallaxAndWidth);
-        window.addEventListener('load', updateParallaxAndWidth);
-        window.addEventListener('resize', updateParallaxAndWidth);
-    </script>
+        window.addEventListener('scroll', updateParallaxAndWidth);
+        window.addEventListener('load', updateParallaxAndWidth);
+        window.addEventListener('resize', updateParallaxAndWidth);
+    </script>
 
 </body>
 </html>
