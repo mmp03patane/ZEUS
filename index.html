@@ -7,22 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Ensure the hero section covers the full width and height for a good hero effect */
         .hero-section {
+            /* Updated: Custom gradient background */
             background: linear-gradient(to bottom, #534b4b, #493F6E, #f9dfd0);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            overflow: hidden;
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+            position: relative; /* Needed for absolute positioning of overlay */
+            overflow: hidden; /* Hide parts of the animated image that go off-screen */
         }
 
         body {
             font-family: 'Inter', sans-serif;
         }
 
+        /* Custom style for the logo image */
         .header-logo {
-            height: 40px;
-            width: auto;
+            height: 40px; /* Adjust height as needed for your desired size */
+            width: auto; /* Maintain aspect ratio */
         }
     </style>
 </head>
@@ -31,23 +34,21 @@
     <header class="bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="#" class="flex items-center">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/zeuscrop.PNG?raw=true" alt="ZEUS Logo" class="header-logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/copy%20of%20logo.JPG?raw=true" alt="ZEUS Logo" class="header-logo">
             </a>
             <ul class="flex space-x-6">
                 <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Product</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Solutions</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Features</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Pricing</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Get Started</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Login</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Services</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero-section relative h-screen flex items-center justify-center text-white">
+        <section
+            class="hero-section relative h-screen flex items-center justify-center text-white"
+            >
             <img
                 id="parallax-image"
                 src="https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_23gdvh23gdvh23gd-removebg-preview.png?raw=true"
@@ -57,48 +58,108 @@
             >
 
             <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg shadow-lg max-w-2xl mx-4">
-                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">More Reviews. <br>Less Hassle.</h1>
-                <p class="text-xl md:text-2xl mb-4">Automate your Google review requests to grow trust, visibility, and sales.</p>
-
-                <!-- Pricing Line -->
-                <p class="text-lg md:text-xl font-semibold text-white mb-8">
-                    Just <span class="text-yellow-300">$49.99/month</span> — no lock-in contracts. CRM integration included.
-                </p>
-
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mr-2">
-                    Get Started
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Welcome to Our Amazing Site</h1>
+                <p class="text-xl md:text-2xl mb-8">Discover a world of possibilities with our innovative solutions.</p>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Learn More
                 </button>
-                <button class="bg-white hover:bg-gray-100 text-black font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Login
-                </button>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">About Us</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/cccccc/333333?text=About+Image" alt="About Us" class="rounded-lg shadow-md w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 text-lg text-gray-700">
+                        <p class="mb-4">
+                            We are a passionate team dedicated to delivering high-quality solutions that exceed expectations. Our mission is to innovate and provide exceptional value to our clients.
+                        </p>
+                        <p>
+                            With years of experience in the industry, we pride ourselves on our commitment to excellence and customer satisfaction. We believe in building strong relationships and fostering a collaborative environment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">Web Development</h3>
+                        <p class="text-gray-700">Building responsive and modern web applications tailored to your needs.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">UI/UX Design</h3>
+                        <p class="text-gray-700">Creating intuitive and engaging user interfaces for optimal experience.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-2xl font-semibold mb-4">Digital Marketing</h3>
+                        <p class="text-gray-700">Strategies to boost your online presence and reach a wider audience.</p>
+                    </p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 My Website. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
+        // Get the parallax image element
         const parallaxImage = document.getElementById('parallax-image');
+        // Get the hero section element to calculate its offset
         const heroSection = document.querySelector('.hero-section');
+        // Get the text content div to match its width
         const textContentDiv = document.querySelector('.hero-section > div');
 
+        // Function to update the image position and width based on scroll and text content
         function updateParallaxAndWidth() {
+            // Calculate the scroll position relative to the top of the hero section
             const heroRect = heroSection.getBoundingClientRect();
-            const scrollAmount = -heroRect.top;
-            const parallaxFactor = 0.2;
+            const scrollAmount = -heroRect.top; // Positive value as we scroll down
 
+            // Adjust the translation factor to control the speed of movement
+            const parallaxFactor = 0.2; // Adjust this value to make it move more or less
+
+            // First, set the width of the image to match the text content div
+            // This ensures clientWidth is accurate for the initial offset calculation
             parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
 
-            const hiddenPercentage = 0.15;
+            // Define the percentage of the image to initially hide on the left
+            const hiddenPercentage = 0.15; // 15% of the image width
+
+            // Calculate the initial negative offset to hide the specified percentage of the image
             const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
+
+            // Calculate the translateX value based on scroll, moving it to the right
             const scrollTranslation = scrollAmount * parallaxFactor;
+
+            // Combine the initial hidden offset with the scroll-based translation
             const finalTranslateX = initialHiddenOffset + scrollTranslation;
 
+            // Apply the transform to the image
             parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
+
+            // The 'left-0' class on the image ensures it's anchored to the left of the hero section,
+            // and the 'overflow: hidden' on the hero section prevents the hidden part from being visible.
         }
 
+        // Add a scroll event listener to update the parallax effect
         window.addEventListener('scroll', updateParallaxAndWidth);
+
+        // Call it once on load to set the initial position and width correctly
         window.addEventListener('load', updateParallaxAndWidth);
+        // Also call on resize to ensure width and position adjust if viewport changes
         window.addEventListener('resize', updateParallaxAndWidth);
     </script>
-
 </body>
 </html>
