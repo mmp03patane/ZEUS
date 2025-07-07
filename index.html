@@ -7,25 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Ensure the hero section covers the full width and height for a good hero effect */
         .hero-section {
-            /* Updated: Custom gradient background */
             background: linear-gradient(to bottom, #534b4b, #493F6E, #f9dfd0);
-            background-size: cover; /* Cover the entire area */
-            background-position: center; /* Center the background image */
-            background-repeat: no-repeat; /* Do not repeat the background image */
-            position: relative; /* Needed for absolute positioning of overlay */
-            overflow: hidden; /* Hide parts of the animated image that go off-screen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
         }
 
         body {
             font-family: 'Inter', sans-serif;
         }
 
-        /* Custom style for the logo image */
         .header-logo {
-            height: 40px; /* Adjust height as needed for your desired size */
-            width: auto; /* Maintain aspect ratio */
+            height: 40px;
+            width: auto;
         }
     </style>
 </head>
@@ -50,9 +47,7 @@
     </header>
 
     <main>
-        <section
-            class="hero-section relative h-screen flex items-center justify-center text-white"
-            >
+        <section class="hero-section relative h-screen flex items-center justify-center text-white">
             <img
                 id="parallax-image"
                 src="https://github.com/mmp03patane/ZEUS/blob/main/Gemini_Generated_Image_23gdvh23gdvh23gd-removebg-preview.png?raw=true"
@@ -63,63 +58,47 @@
 
             <div class="text-center bg-black bg-opacity-50 p-8 rounded-lg shadow-lg max-w-2xl mx-4">
                 <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">More Reviews. <br>Less Hassle.</h1>
-                <p class="text-xl md:text-2xl mb-8">Automate your Google review requests to grow trust, visibility, and sales.</p>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                <p class="text-xl md:text-2xl mb-4">Automate your Google review requests to grow trust, visibility, and sales.</p>
+
+                <!-- Pricing Line -->
+                <p class="text-lg md:text-xl font-semibold text-white mb-8">
+                    Just <span class="text-yellow-300">$49.99/month</span> — no lock-in contracts. CRM integration included.
+                </p>
+
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mr-2">
                     Get Started
                 </button>
- <button class="bg-white hover:bg-gray-100 text-black font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-    Login
-</button>
+                <button class="bg-white hover:bg-gray-100 text-black font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Login
+                </button>
             </div>
         </section>
+    </main>
 
     <script>
-        // Get the parallax image element
         const parallaxImage = document.getElementById('parallax-image');
-        // Get the hero section element to calculate its offset
         const heroSection = document.querySelector('.hero-section');
-        // Get the text content div to match its width
         const textContentDiv = document.querySelector('.hero-section > div');
 
-        // Function to update the image position and width based on scroll and text content
         function updateParallaxAndWidth() {
-            // Calculate the scroll position relative to the top of the hero section
             const heroRect = heroSection.getBoundingClientRect();
-            const scrollAmount = -heroRect.top; // Positive value as we scroll down
+            const scrollAmount = -heroRect.top;
+            const parallaxFactor = 0.2;
 
-            // Adjust the translation factor to control the speed of movement
-            const parallaxFactor = 0.2; // Adjust this value to make it move more or less
-
-            // First, set the width of the image to match the text content div
-            // This ensures clientWidth is accurate for the initial offset calculation
             parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
 
-            // Define the percentage of the image to initially hide on the left
-            const hiddenPercentage = 0.15; // 15% of the image width
-
-            // Calculate the initial negative offset to hide the specified percentage of the image
+            const hiddenPercentage = 0.15;
             const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
-
-            // Calculate the translateX value based on scroll, moving it to the right
             const scrollTranslation = scrollAmount * parallaxFactor;
-
-            // Combine the initial hidden offset with the scroll-based translation
             const finalTranslateX = initialHiddenOffset + scrollTranslation;
 
-            // Apply the transform to the image
             parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
-
-            // The 'left-0' class on the image ensures it's anchored to the left of the hero section,
-            // and the 'overflow: hidden' on the hero section prevents the hidden part from being visible.
         }
 
-        // Add a scroll event listener to update the parallax effect
         window.addEventListener('scroll', updateParallaxAndWidth);
-
-        // Call it once on load to set the initial position and width correctly
         window.addEventListener('load', updateParallaxAndWidth);
-        // Also call on resize to ensure width and position adjust if viewport changes
         window.addEventListener('resize', updateParallaxAndWidth);
     </script>
+
 </body>
 </html>
