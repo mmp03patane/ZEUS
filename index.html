@@ -203,7 +203,7 @@
             }
         }
 
-       
+        /* Hero Section */
         .hero-section {
             background: linear-gradient(to bottom, #3a3458, #f3d8c3); /* Updated gradient */
             background-size: cover;
@@ -216,24 +216,27 @@
             align-items: center;
             justify-content: center;
             color: #ffffff;
-           
-            margin-top: -60px; 
-            padding-top: 60px; 
-            box-sizing: border-box; 
+            /* Adjust top margin to account for fixed header */
+            margin-top: -60px; /* Negative margin equal to header height */
+            padding-top: 60px; /* Add padding equal to header height to push content down */
+            box-sizing: border-box; /* Include padding in height calculation */
         }
 
-        
+        /* Parallax Image inside Hero */
         .hero-section .parallax-image {
             position: absolute;
             left: 0;
             width: 100%;
             max-width: 40rem;
             bottom: -0%;
-           
+            /* Ensure the image background is transparent */
             background-color: transparent;
+            /* Explicitly remove any default borders */
+            border: none;
+            outline: none;
         }
 
-        
+        /* Hero Text Content */
         .hero-content {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.5);
@@ -327,7 +330,7 @@
             }
         }
 
-        
+        /* Common Button Styles */
         .btn {
             padding: 0.75rem 2rem;
             border-radius: 9999px;
@@ -369,7 +372,7 @@
             background-color: #f9fafb;
         }
 
-        
+        /* Login Button specific styles */
         .btn-login {
             background-color: #2563eb;
             color: #ffffff;
@@ -382,11 +385,11 @@
             white-space: nowrap;
         }
 
-       
+        /* Smaller login button for mobile */
         @media (max-width: 767px) {
             .btn-login-mobile {
-                padding: 0.4rem 0.8rem; 
-                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem; /* Slightly smaller padding */
+                font-size: 0.9rem; /* Slightly smaller font size */
             }
         }
 
@@ -395,12 +398,12 @@
             transform: scale(1.05);
         }
 
-       
+        /* Hide desktop login button on mobile */
         .btn-login-desktop {
             display: none;
         }
 
-        
+        /* Show mobile login button on mobile, hide on desktop */
         .btn-login-mobile {
             display: block;
         }
@@ -685,7 +688,7 @@
             font-size: 1.2rem;
         }
 
-        
+        /* FAQ Section */
         .faq-item {
             background-color: #ffffff;
             padding: 1.5rem;
@@ -747,6 +750,7 @@
 
         /* Parallax Image Error Handling */
         img[onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Error';"] {
+            /* This rule will no longer apply to the parallax image once onerror is removed */
             border: 1px dashed #ccc;
             background-color: #f0f0f0;
             display: block;
@@ -801,7 +805,7 @@
                 src="https://github.com/mmp03patane/ZEUS/blob/main/Zeus%20Animated.PNG?raw=true"
                 alt="Animated Overlay"
                 class="parallax-image"
-                style="bottom: -0%;" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Error';"
+                style="bottom: -0%;"
             >
 
             <div class="hero-content">
@@ -1056,7 +1060,7 @@
     </footer>
 
     <script>
-        
+        // --- Mobile Navigation Toggle ---
         const hamburgerButton = document.getElementById('hamburger-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -1064,14 +1068,14 @@
             mobileMenu.classList.toggle('open');
         });
 
-        
+        // Close mobile menu when a link is clicked
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('open');
             });
         });
 
-        
+        // --- Smooth Scrolling for Navigation Links ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1092,6 +1096,7 @@
             });
         });
 
+        // --- Parallax Logic (with a mobile adjustment) ---
         const parallaxImage = document.getElementById('parallax-image');
         const heroSection = document.querySelector('.hero-section');
         const textContentDiv = document.querySelector('.hero-content');
@@ -1125,7 +1130,7 @@
         window.addEventListener('load', updateParallaxAndWidth);
         window.addEventListener('resize', updateParallaxAndWidth);
 
-        
+        // --- FAQ Accordion Logic ---
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
