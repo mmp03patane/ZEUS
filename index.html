@@ -70,13 +70,24 @@
             .header-logo {
                 height: 30px;
             }
+            /* Push logo further to the left on mobile */
+            .header-logo-link {
+                margin-right: auto; /* Pushes the logo to the far left */
+            }
         }
 
         /* Hamburger Button and Login Button Container */
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 1rem; /* Space between hamburger and login button */
+            gap: 1rem; /* Space between login and hamburger button */
+        }
+
+        /* Mobile specific order for login and hamburger */
+        @media (max-width: 767px) {
+            .nav-controls {
+                flex-direction: row-reverse; /* Swap order: login then hamburger */
+            }
         }
 
         /* Hamburger Button */
@@ -135,7 +146,7 @@
             .nav-controls .btn-login-desktop {
                 display: block; /* Show desktop login button */
             }
-             .nav-controls .btn-login-mobile {
+            .nav-controls .btn-login-mobile {
                 display: none; /* Hide mobile login button */
             }
         }
@@ -364,6 +375,14 @@
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
             white-space: nowrap;
+        }
+
+        /* Smaller login button for mobile */
+        @media (max-width: 767px) {
+            .btn-login-mobile {
+                padding: 0.4rem 0.8rem; /* Slightly smaller padding */
+                font-size: 0.9rem; /* Slightly smaller font size */
+            }
         }
 
         .btn-login:hover {
@@ -739,12 +758,12 @@
             </a>
 
             <div class="nav-controls">
+                <a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-mobile">Login</a>
                 <button id="hamburger-button" class="hamburger-button btn-login-mobile">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
-                <a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-mobile">Login</a>
             </div>
 
 
