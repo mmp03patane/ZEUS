@@ -45,7 +45,7 @@
 
         .navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* This handles logo far left and controls far right */
             align-items: center;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
@@ -70,9 +70,10 @@
             .header-logo {
                 height: 30px;
             }
-            /* Push logo further to the left on mobile */
+            /* Remove margin-right: auto from header-logo-link on mobile.
+               justify-content: space-between on .navbar will push it left. */
             .header-logo-link {
-                margin-right: auto; /* Pushes the logo to the far left */
+                margin-right: 0; /* Ensures it's not pushed too far, let navbar handle spacing */
             }
         }
 
@@ -86,7 +87,9 @@
         /* Mobile specific order for login and hamburger */
         @media (max-width: 767px) {
             .nav-controls {
-                flex-direction: row-reverse; /* Swap order: login then hamburger */
+                /* No flex-direction: row-reverse needed here if HTML order is correct
+                   and we want login then hamburger. The HTML order handles this now. */
+                /* flex-direction: row-reverse; */ /* Removed as per new requirement */
             }
         }
 
@@ -225,7 +228,7 @@
             left: 0;
             width: 100%;
             max-width: 40rem;
-            bottom: -12%;
+            bottom: -0%; /* Changed from -12% to -0% */
         }
 
         /* Hero Text Content */
