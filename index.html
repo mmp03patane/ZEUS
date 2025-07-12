@@ -786,6 +786,72 @@
             display: block;
         }
 
+        /* Styles for the new dropdown and messages */
+        .integration-section {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align dropdown and text to the left */
+        }
+
+        .integration-section label {
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .integration-section select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            color: #4b5563;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            width: 100%; /* Full width for the select */
+            max-width: 300px; /* Limit max-width for better aesthetics */
+            appearance: none; /* Remove default arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%234B5563%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1em;
+            margin-bottom: 1rem; /* Space between dropdown and message */
+        }
+
+        .integration-section select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .integration-message {
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            color: #1f2937;
+            line-height: 1.5;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+        }
+
+        .integration-message strong {
+            color: #2563eb;
+        }
+
+        .get-started-button-container {
+            margin-top: 1.5rem;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+        }
+
+        /* Keyframe animation for fading in */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Footer Styles */
         .footer {
@@ -900,7 +966,41 @@
                         <br>
                         <p>Check if your Business Software is supported 👇</p>
                         
-                    </div>
+                        <div class="integration-section">
+                            <label for="business-software-select">Select your software:</label>
+                            <select id="business-software-select">
+                                <option value="">-- Please select --</option>
+                                <option value="Capsule CRM">Capsule CRM</option>
+                                <option value="Fergus">Fergus</option>
+                                <option value="FreshBooks">FreshBooks</option>
+                                <option value="Freshsales">Freshsales</option>
+                                <option value="HubSpot CRM">HubSpot CRM</option>
+                                <option value="Insightly">Insightly</option>
+                                <option value="Jobber">Jobber</option>
+                                <option value="Method CRM">Method CRM</option>
+                                <option value="MYOB">MYOB</option>
+                                <option value="QuickBooks Online">QuickBooks Online</option>
+                                <option value="Reckon">Reckon</option>
+                                <option value="Sage Accounting">Sage Accounting</option>
+                                <option value="Salesforce Essentials">Salesforce Essentials</option>
+                                <option value="ServiceM8">ServiceM8</option>
+                                <option value="SimPRO">SimPRO</option>
+                                <option value="Teamgate CRM">Teamgate CRM</option>
+                                <option value="Thriday">Thriday</option>
+                                <option value="Tradify">Tradify</option>
+                                <option value="WORKetc">WORKetc</option>
+                                <option value="Xero">Xero</option>
+                                <option value="Zoho Books">Zoho Books</option>
+                                <option value="Zoho CRM">Zoho CRM</option>
+                            </select>
+
+                            <p id="integration-message" class="integration-message"></p>
+                            
+                            <div id="get-started-button-container" class="get-started-button-container">
+                                <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Get started</a>
+                            </div>
+                        </div>
+                        </div>
                 </div>
                 
             </div>
@@ -1172,6 +1272,24 @@
                 answer.classList.toggle('open');
                 question.classList.toggle('active');
             });
+        });
+
+        // --- How It Works - Software Integration Logic ---
+        const businessSoftwareSelect = document.getElementById('business-software-select');
+        const integrationMessage = document.getElementById('integration-message');
+        const getStartedButtonContainer = document.getElementById('get-started-button-container');
+
+        businessSoftwareSelect.addEventListener('change', (event) => {
+            const selectedSoftware = event.target.value;
+
+            if (selectedSoftware) {
+                integrationMessage.innerHTML = `Great! ZEUS integrates with <strong>${selectedSoftware}</strong> in seconds!<br>Next: set up your ZEUS account to get started`;
+                integrationMessage.style.display = 'block';
+                getStartedButtonContainer.style.display = 'block';
+            } else {
+                integrationMessage.style.display = 'none';
+                getStartedButtonContainer.style.display = 'none';
+            }
         });
     </script>
 </body>
