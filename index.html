@@ -80,8 +80,8 @@
         /* Hamburger Button and Login Button Container */
         .nav-controls {
             display: flex;
-            align-items: center;
-            gap: 1rem; /* Space between login and hamburger button */
+            align-items: right;
+            gap: 1rem; 
         }
 
         /* Mobile specific order for login and hamburger */
@@ -115,7 +115,7 @@
             height: 1.5rem;
         }
 
-        /* Desktop Navigation */
+        
         .desktop-nav {
             display: none;
             list-style: none;
@@ -147,13 +147,13 @@
                 display: none !important;
             }
             .nav-controls .btn-login-desktop {
-                display: block; /* Show desktop login button */
-                /* --- START OF CHANGE --- */
-                color: #ffffff; /* Sets the font color to white for the desktop login button */
-                /* --- END OF CHANGE --- */
+                display: block; 
+                
+                color: #ffffff !important; 
+                
             }
             .nav-controls .btn-login-mobile {
-                display: none; /* Hide mobile login button */
+                display: none; 
             }
         }
 
@@ -414,7 +414,7 @@
         @media (min-width: 768px) {
             .btn-login-desktop {
                 display: block;
-                color: #ffffff; /* ONLY CHANGE HERE: Sets the font color to white for the desktop login button */
+                color: #ffffff !important; /* Sets the font color to white for the desktop login button and ensures it overrides. */
             }
             .btn-login-mobile {
                 display: none;
@@ -792,7 +792,6 @@
         </nav>
 
         <ul id="mobile-menu">
-            <li><a href="#">Home</a></li>
             <li><a href="#product">Product</a></li>
             <li><a href="#solutions">Solutions</a></li>
             <li><a href="#features">Features</a></li>
