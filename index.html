@@ -1096,7 +1096,7 @@
             });
         });
 
-        // --- Parallax Logic (with a mobile adjustment) ---
+        // --- Parallax Logic (with enhanced mobile adjustment) ---
         const parallaxImage = document.getElementById('parallax-image');
         const heroSection = document.querySelector('.hero-section');
         const textContentDiv = document.querySelector('.hero-content');
@@ -1104,24 +1104,30 @@
         function updateParallaxAndWidth() {
             const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
             const heroRect = heroSection.getBoundingClientRect();
-            const scrollAmount = -heroRect.top;
+            const scrollAmount = -heroRect.top; // How much the hero section has scrolled up
 
-            let parallaxFactor = 0.2; // Default for desktop
+            // Define different parallax factors and hidden percentages for mobile vs. desktop
+            let parallaxFactor;
+            let hiddenPercentage; // How much of the image is initially hidden on the left
 
-            if (viewportWidth < 768) {
-                parallaxImage.style.width = '120%';
-                parallaxFactor = 0.1;
-            } else {
-                parallaxImage.style.width = `${textContentDiv.clientWidth}px`;
+            if (viewportWidth < 768) { // Mobile devices
+                parallaxImage.style.width = '120%'; // Keep a slightly larger width for the image on mobile
+                parallaxFactor = 0.3; // Make the image move faster (more drastic effect)
+                hiddenPercentage = 0.3; // Start with more of the image hidden (e.g., 30%)
+            } else { // Desktop and larger tablets
+                parallaxImage.style.width = `${textContentDiv.clientWidth}px`; // Match text content width
+                parallaxFactor = 0.2; // Original desktop parallax speed
+                hiddenPercentage = 0.15; // Original desktop hidden amount
             }
 
-            const hiddenPercentage = 0.15;
             const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
-
+            
+            // Calculate translation based on scroll amount and parallax factor
             let scrollTranslation = scrollAmount * parallaxFactor;
 
+            // Ensure the image doesn't move past its final, fully-revealed position (translateX = 0)
             let finalTranslateX = initialHiddenOffset + scrollTranslation;
-            finalTranslateX = Math.min(finalTranslateX, 0);
+            finalTranslateX = Math.min(finalTranslateX, 0); // Cap the movement at 0 (fully visible)
 
             parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
         }
