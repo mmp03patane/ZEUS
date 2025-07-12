@@ -383,7 +383,7 @@
             background-color: #f9fafb;
         }
 
-        /* Login Button specific styles */
+        /* Login Button specific styles (for header) */
         .btn-login {
             background-color: #2563eb;
             color: #ffffff;
@@ -396,7 +396,7 @@
             white-space: nowrap;
         }
 
-        /* Smaller login button for mobile */
+        /* Smaller login button for mobile in header */
         @media (max-width: 767px) {
             .btn-login-mobile {
                 padding: 0.5rem 1rem; /* Adjusted padding to ensure text centering */
@@ -429,6 +429,14 @@
             }
         }
 
+        /* Hero section buttons specific adjustments for mobile */
+        @media (max-width: 639px) { /* Targeting mobile devices below 640px */
+            .hero-buttons .btn-secondary {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                /* Ensure vertical padding matches .btn-primary in hero-buttons */
+            }
+        }
 
         /* Section Styling */
         .section-padding {
