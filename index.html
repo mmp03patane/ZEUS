@@ -26,6 +26,14 @@
             padding-right: 1rem;
         }
 
+        /* Header Content Width on Mobile */
+        @media (max-width: 767px) {
+            .container {
+                padding-left: 1.25rem; /* Slightly wider padding on mobile */
+                padding-right: 1.25rem; /* Slightly wider padding on mobile */
+            }
+        }
+
         /* Header Styles */
         .header {
             background-color: #ffffff;
@@ -80,8 +88,8 @@
         /* Hamburger Button and Login Button Container */
         .nav-controls {
             display: flex;
-            align-items: right;
-            gap: 1rem; 
+            align-items: center; /* Changed to center for better vertical alignment */
+            gap: 1rem;
         }
 
         /* Mobile specific order for login and hamburger */
@@ -115,7 +123,6 @@
             height: 1.5rem;
         }
 
-        
         .desktop-nav {
             display: none;
             list-style: none;
@@ -147,13 +154,13 @@
                 display: none !important;
             }
             .nav-controls .btn-login-desktop {
-                display: block; 
-                
-                color: #ffffff !important; 
-                
+                display: block;
+
+                color: #ffffff !important;
+
             }
             .nav-controls .btn-login-mobile {
-                display: none; 
+                display: none;
             }
         }
 
@@ -180,7 +187,7 @@
         #mobile-menu a {
             display: block;
             padding: 0.75rem 1rem;
-            text-align: center;
+            text-align: right; /* Aligned to the right */
             border-bottom: 1px solid #eee;
             color: #374151;
             text-decoration: none;
@@ -347,6 +354,7 @@
             justify-content: center;
             white-space: nowrap;
             cursor: pointer;
+            font-size: 1rem; /* Ensure consistent font size for all hero buttons */
         }
 
         .btn:hover {
@@ -391,8 +399,8 @@
         /* Smaller login button for mobile */
         @media (max-width: 767px) {
             .btn-login-mobile {
-                padding: 0.4rem 0.8rem; /* Slightly smaller padding */
-                font-size: 0.9rem; /* Slightly smaller font size */
+                padding: 0.5rem 1rem; /* Adjusted padding to ensure text centering */
+                font-size: 1rem; /* Adjusted font size for better visual balance */
             }
         }
 
