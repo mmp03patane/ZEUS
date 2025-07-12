@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZEUS - Automate Your Google Reviews</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,6 +15,8 @@
             background-color: #f3f4f6; /* Consistent light gray background */
             color: #1f2937; /* Dark gray for general text */
             line-height: 1.5; /* Default line height */
+            /* Crucial for preventing horizontal scroll/margin on mobile */
+            overflow-x: hidden;
         }
 
         /* Container for content width */
@@ -220,6 +222,7 @@
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
+            /* Changed to hidden to clip overflowing parallax image */
             overflow: hidden;
             height: 100vh;
             display: flex;
@@ -236,15 +239,21 @@
         .hero-section .parallax-image {
             position: absolute;
             left: 0;
-            width: 100%;
-            max-width: 40rem;
+            /* Remove width: 100% here as it will be set dynamically and potentially larger */
+            max-width: none; /* Allow image to be wider than its container */
             bottom: -0%;
-            /* Ensure the image background is transparent */
             background-color: transparent;
-            /* Explicitly remove any default borders */
             border: none;
             outline: none;
+            /* Add pointer-events: none to prevent the large image from blocking interactions */
+            pointer-events: none;
+            /* Ensure the image scales correctly and covers the area needed for parallax */
+            object-fit: cover;
+            /* Add these for better control */
+            height: auto;
+            min-width: 100%; /* Ensure it's at least as wide as the hero section */
         }
+
 
         /* Hero Text Content */
         .hero-content {
@@ -899,7 +908,7 @@
                     <div class="solution-card">
                         <h3>For Retail & Hospitality</h3>
                         <p><strong>The Challenge:</strong> Competition is fierce, and positive reviews are key to standing out and attracting walk-in customers.</p>
-                        <p><strong>How ZEUS Solves It:</strong> Capture customer sentiment immediately after their visit. Perfect for cafes, restaurants, and shops looking to amplify their word-of-mouth marketing online.</p>
+                        <p><strong>How ZEUS Solves It:</b> Capture customer sentiment immediately after their visit. Perfect for cafes, restaurants, and shops looking to amplify their word-of-mouth marketing online.</p>
                         <p style="font-style: italic; margin-top: 1rem;">"Our cafe's Google rating has soared since we started using ZEUS. It's so easy!" - Cafe Owner</p>
                     </div>
                     <div class="solution-card">
@@ -1125,7 +1134,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => { // Use a small timeout to ensure browser's own scroll restoration is overridden
                 window.scrollTo(0, 0);
-            }, 10); 
+            }, 10);
         });
 
         // --- Logo click to return to top ---
@@ -1150,22 +1159,29 @@
             const heroRect = heroSection.getBoundingClientRect();
             const scrollAmount = -heroRect.top; // How much the hero section has scrolled up
 
-            // Define different parallax factors and hidden percentages for mobile vs. desktop
             let parallaxFactor;
-            let hiddenPercentage; // How much of the image is initially hidden on the left
+            let initialHiddenPercentage; // How much of the image is initially hidden on the left
+            let imageBaseWidth; // The base width of the parallax image
 
             if (viewportWidth < 768) { // Mobile devices
-                parallaxImage.style.width = '120%'; // Keep a slightly larger width for the image on mobile
                 parallaxFactor = 0.3; // Make the image move faster (more drastic effect)
-                hiddenPercentage = 0.3; // Start with more of the image hidden (e.g., 30%)
+                initialHiddenPercentage = 0.3; // Start with more of the image hidden (e.g., 30%)
+                imageBaseWidth = viewportWidth * 1.2; // Set image to 120% of viewport width
             } else { // Desktop and larger tablets
-                parallaxImage.style.width = `${textContentDiv.clientWidth}px`; // Match text content width
                 parallaxFactor = 0.2; // Original desktop parallax speed
-                hiddenPercentage = 0.15; // Original desktop hidden amount
+                initialHiddenPercentage = 0.15; // Original desktop hidden amount
+                // On desktop, match the text content width but allow for horizontal movement
+                imageBaseWidth = Math.max(textContentDiv.clientWidth, viewportWidth) * 1.2; // Ensure it's large enough for parallax effect
+                // Alternatively, you can cap it at a reasonable max-width if the image resolution doesn't support very large sizes
+                // imageBaseWidth = Math.min(imageBaseWidth, 1920); // Example: Don't let it get ridiculously wide
             }
 
-            const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
-            
+            // Apply the calculated width to the parallax image
+            parallaxImage.style.width = `${imageBaseWidth}px`;
+            parallaxImage.style.height = 'auto'; // Maintain aspect ratio
+
+            const initialHiddenOffset = -imageBaseWidth * initialHiddenPercentage;
+
             // Calculate translation based on scroll amount and parallax factor
             let scrollTranslation = scrollAmount * parallaxFactor;
 
