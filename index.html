@@ -429,12 +429,20 @@
             }
         }
 
-        /* Hero section buttons specific adjustments for mobile */
+        ---
+        ## Hero Section Buttons Height Consistency (Mobile Only)
+        To ensure the "Get Started" and "Login" buttons in the hero section have the exact same height on mobile, we need to make sure their total height (content + padding + border) is identical.
+        Since `.btn-secondary` has a `1px` border that `.btn-primary` does not, we'll adjust the padding of the `.btn-primary` on mobile to account for this.
+        ---
         @media (max-width: 639px) { /* Targeting mobile devices below 640px */
+            .hero-buttons .btn-primary {
+                padding-top: calc(0.75rem - 1px); /* Reduce padding by border width */
+                padding-bottom: calc(0.75rem - 1px); /* Reduce padding by border width */
+            }
             .hero-buttons .btn-secondary {
+                /* Keep original padding, as its 1px border will now make it match the primary's adjusted padding */
                 padding-top: 0.75rem;
                 padding-bottom: 0.75rem;
-                /* Ensure vertical padding matches .btn-primary in hero-buttons */
             }
         }
 
