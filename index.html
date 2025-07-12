@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>ZEUS - Automate Your Google Reviews</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -429,18 +429,15 @@
             }
         }
 
-        ---
-        ## Hero Section Buttons Height Consistency (Mobile Only)
-        To ensure the "Get Started" and "Login" buttons in the hero section have the exact same height on mobile, we need to make sure their total height (content + padding + border) is identical.
-        Since `.btn-secondary` has a `1px` border that `.btn-primary` does not, we'll adjust the padding of the `.btn-primary` on mobile to account for this.
-        ---
+        /* Hero section buttons specific adjustments for mobile */
         @media (max-width: 639px) { /* Targeting mobile devices below 640px */
             .hero-buttons .btn-primary {
-                padding-top: calc(0.75rem - 1px); /* Reduce padding by border width */
-                padding-bottom: calc(0.75rem - 1px); /* Reduce padding by border width */
+                /* Reduced padding to account for the 1px border on btn-secondary */
+                padding-top: calc(0.75rem - 1px);
+                padding-bottom: calc(0.75rem - 1px);
             }
             .hero-buttons .btn-secondary {
-                /* Keep original padding, as its 1px border will now make it match the primary's adjusted padding */
+                /* Kept original padding, as its 1px border will now make it match primary's adjusted padding */
                 padding-top: 0.75rem;
                 padding-bottom: 0.75rem;
             }
@@ -790,7 +787,7 @@
 
     <header class="header">
         <nav class="navbar container">
-            <a href="#" class="header-logo-link">
+            <a href="#" class="header-logo-link" id="logo-top-link">
                 <img src="https://github.com/mmp03patane/ZEUS/blob/main/zeuscrop.PNG?raw=true" alt="ZEUS Logo" class="header-logo">
             </a>
 
@@ -1122,6 +1119,26 @@
                 }
             });
         });
+
+        // --- Force scroll to top on page load/refresh ---
+        // This addresses the "pinch and zoomed out" feeling on refresh by ensuring the page always starts at the top.
+        window.addEventListener('load', () => {
+            setTimeout(() => { // Use a small timeout to ensure browser's own scroll restoration is overridden
+                window.scrollTo(0, 0);
+            }, 10); 
+        });
+
+        // --- Logo click to return to top ---
+        const logoTopLink = document.getElementById('logo-top-link');
+        if (logoTopLink) {
+            logoTopLink.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        }
 
         // --- Parallax Logic (with enhanced mobile adjustment) ---
         const parallaxImage = document.getElementById('parallax-image');
