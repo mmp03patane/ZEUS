@@ -215,10 +215,7 @@
 
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(to bottom, #3a3458, #f3d8c3); /* Updated gradient */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #3a3458;
             position: relative;
             overflow: hidden;
             height: 100vh;
@@ -231,28 +228,10 @@
             padding-top: 50px; /* Add padding equal to header height to push content down */
             box-sizing: border-box; /* Include padding in height calculation */
         }
-
-        /* Parallax Image inside Hero */
-        .hero-section .parallax-image {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            max-width: 40rem;
-            bottom: -0%;
-            /* Ensure the image background is transparent */
-            background-color: transparent;
-            /* Explicitly remove any default borders */
-            border: none;
-            outline: none;
-        }
-
-        /* Hero Text Content */
+        
         .hero-content {
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
             padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             max-width: 40rem;
             margin-left: 1rem;
             margin-right: 1rem;
@@ -261,7 +240,7 @@
         }
 
         .hero-content h1 {
-            font-size: 2.25rem;
+            font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.25;
@@ -296,7 +275,6 @@
             }
         }
 
-        /* New styles for the pricing text in hero section */
         .hero-price-display {
             font-size: 3rem; /* Matches pricing card .price */
             font-weight: 800; /* Matches pricing card .price */
@@ -894,14 +872,14 @@
 
 
             <ul class="desktop-nav">
-  <li><a href="#how-it-works">How It Works</a></li>
-  <li><a href="#features">Features</a></li>
-  <li><a href="#pricing">Pricing</a></li>
-  <li><a href="#faq">FAQ</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="https://zeusapp.co/privacypolicy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-  <li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Login</a></li>
-</ul>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://zeusapp.co/privacypolicy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                <li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Login</a></li>
+            </ul>
         </nav>
 
         <ul id="mobile-menu">
@@ -915,38 +893,24 @@
 
     <main>
         <section class="hero-section">
-            <img
-                id="parallax-image"
-                src="https://github.com/mmp03patane/ZEUS/blob/main/Zeus%20Animated.PNG?raw=true"
-                alt="Animated Overlay"
-                class="parallax-image"
-                style="bottom: -0%;"
-            >
-
             <div class="hero-content">
                 <h1>
-                    Automate Your<br>
-                    Google Reviews
+                    Turn Paid Xero Invoices Into 5-Star Google Reviews — Automatically
                 </h1>
                 <p>
-                    ⚡ Let the power of ZEUS automate <br>your Google review requests.
+                    Exclusive for Xero customers with a Google Business Profile.<br><br>Stop chasing reviews. With Zeus, every time you mark an invoice as Paid in Xero, your customer instantly gets a personalized SMS with a direct link to leave you a Google review. No follow-up calls. No admin. Just more stars, more trust, more business.
                 </p>
-
+                
                 <div class="hero-price-display">
                     $49.99<span>/month</span>
                 </div>
                 <p class="hero-frequency-info">
-                    - Billed monthly
-                    <br>
-                    - No lock-in contracts
+                    - Cancel anytime
                 </p>
                 
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">
-                        How Does It Work?
-                    </button>
-                    <a href="https://app.zeusreviews.com/login" class="btn btn-secondary">
-                        Login
+                    <a href="https://app.zeusreviews.com/login" class="btn btn-primary">
+                        Get Started Today →
                     </a>
                 </div>
             </div>
@@ -955,53 +919,27 @@
         <section id="how-it-works" class="section-padding bg-white">
             <div class="container">
                 <h2 class="section-title">How It Works</h2>
-                <div class="content-section">
-                    
-                    <div class="content-text-col">
-                        
-                        <p>ZEUS integrates seamlessly with your existing business software (like Xero, MYOB, HubSpot, Tradify or ServiceM8). <br><br>It automates Google Review requests acting as the intelligent bridge between your workflows and your Google Business Profile. <br><br>ZEUS is triggered by key events like completed jobs or paid invoices; instantly sending personalised review requests via <b>SMS</b> or <b>email</b>.<br><br> The result? <br><br>More reviews, less chasing, and a stronger online presence — all on autopilot.
-                        <br><br>
-                        It's free to get started!
-                        <br><br></p>
-                        <h4><b>Step 1</b></h4>
-                        <br>
-                        <p>Check if your Business Software is supported 👇</p>
-                        
-                        <div class="integration-section">
-                            <label for="business-software-select">Select your software:</label>
-                            <select id="business-software-select">
-                                <option value="">-- Please select --</option>
-                                <option value="Capsule CRM">Capsule CRM</option>
-                                <option value="Fergus">Fergus</option>
-                                <option value="FreshBooks">FreshBooks</option>
-                                <option value="Freshsales">Freshsales</option>
-                                <option value="HubSpot CRM">HubSpot CRM</option>
-                                <option value="Insightly">Insightly</option>
-                                <option value="Jobber">Jobber</option>
-                                <option value="Method CRM">Method CRM</option>
-                                <option value="MYOB">MYOB</option>
-                                <option value="QuickBooks Online">QuickBooks Online</option>
-                                <option value="Reckon">Reckon</option>
-                                <option value="Sage Accounting">Sage Accounting</option>
-                                <option value="Salesforce Essentials">Salesforce Essentials</option>
-                                <option value="ServiceM8">ServiceM8</option>
-                                <option value="SimPRO">SimPRO</option>
-                                <option value="Teamgate CRM">Teamgate CRM</option>
-                                <option value="Thriday">Thriday</option>
-                                <option value="Tradify">Tradify</option>
-                                <option value="WORKetc">WORKetc</option>
-                                <option value="Xero">Xero</option>
-                                <option value="Zoho Books">Zoho Books</option>
-                                <option value="Zoho CRM">Zoho CRM</option>
-                            </select>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Zeus is built exclusively for Xero users who want more Google reviews without the manual follow-up.</p>
 
-                            <p id="integration-message" class="integration-message"></p>
-                            
-                            <div id="get-started-button-container" class="get-started-button-container">
-                                <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Get started</a>
-                            </div>
-                        </div>
-                        </div>
+                <div class="how-it-works-cards">
+                    <div class="how-it-works-card">
+                        <h3>1. Connect in Minutes</h3>
+                        <p>Securely link your Xero account and Google Business Profile to Zeus. It's a quick, one-time setup that takes just a few minutes.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>2. Trigger on Payment</h3>
+                        <p>Whenever you mark an invoice as 'Paid' in Xero, Zeus instantly detects the change and automatically sends a personalized review request to your customer via SMS.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>3. Collect Reviews on Autopilot</h3>
+                        <p>The customer receives the SMS, taps the direct link, and is taken straight to your Google review page. It's a frictionless process that makes getting 5-star feedback easy.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                     <a href="#pricing" class="btn btn-primary">
+                        Ready to Get Started?
+                    </a>
                 </div>
                 
             </div>
@@ -1013,66 +951,45 @@
                 <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Explore the powerful capabilities of ZEUS that make review collection effortless and effective.</p>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <span class="icon">✉️</span>
+                        <span class="icon">📩</span>
                         <div>
-                            <h4>Automated Review Requests</h4>
-                            <p>Send professional review requests automatically via SMS and Email to your customers after their interaction.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📱</span>
-                        <div>
-                            <h4>Mobile-Friendly Interface</h4>
-                            <p>Customers can easily leave reviews from any device, ensuring a smooth and quick process.</p>
+                            <h4>Automated SMS Review Requests</h4>
+                            <p>Every paid invoice in Xero triggers a personalised SMS inviting your customer to review you on Google.</p>
                         </div>
                     </div>
                     <div class="feature-item">
                         <span class="icon">📊</span>
                         <div>
-                            <h4>Real-Time Review Tracking</h4>
-                            <p>Monitor your incoming Google reviews in real-time from a centralized dashboard.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔗</span>
-                        <div>
-                            <h4>CRM/Job App Integrations</h4>
-                            <p>Seamlessly connect with popular CRM and job management apps like Tradify, ServiceM8, and more.</p>
+                            <h4>Live Review Tracking</h4>
+                            <p>See your incoming Google reviews in real time from your Zeus dashboard.</p>
                         </div>
                     </div>
                     <div class="feature-item">
                         <span class="icon">✍️</span>
                         <div>
-                            <h4>Customizable Message Templates</h4>
-                            <p>Personalize your review request messages to match your brand's voice and style.</p>
+                            <h4>Custom Message Templates</h4>
+                            <p>Keep it on-brand with fully customisable review request text.</p>
                         </div>
                     </div>
                     <div class="feature-item">
                         <span class="icon">🔄</span>
                         <div>
-                            <h4>Auto-Follow-Ups for Non-Responders</h4>
-                            <p>Automatically send polite reminders to customers who haven't yet left a review, maximizing your response rate.</p>
+                            <h4>Auto Follow-Ups</h4>
+                            <p>If a customer doesn’t respond, Zeus politely reminds them — increasing your review rate.</p>
                         </div>
                     </div>
                     <div class="feature-item">
                         <span class="icon">📍</span>
                         <div>
-                            <h4>Google My Business Integration</h4>
-                            <p>Directly links customers to your Google My Business profile for hassle-free review submission.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🏢</span>
-                        <div>
-                            <h4>Multi-Location Management</h4>
-                            <p>Manage review campaigns for multiple business locations from a single, intuitive platform.</p>
+                            <h4>Direct Google Link</h4>
+                            <p>One tap takes customers straight to your Google review form — no searching required.</p>
                         </div>
                     </div>
                     <div class="feature-item">
                         <span class="icon">🔒</span>
                         <div>
-                            <h4>Secure & GDPR-Compliant</h4>
-                            <p>Rest assured knowing your data and customer information are handled securely and in compliance with GDPR standards.</p>
+                            <h4>Secure & Compliant</h4>
+                            <p>Your customer data is safe and handled to strict privacy standards.</p>
                         </div>
                     </div>
                 </div>
@@ -1089,16 +1006,15 @@
                         <div class="price">$49.99<span>/month</span></div>
                         <p class="frequency">Billed monthly</p>
                         <ul>
-                            <li>Automated SMS & Email Review Requests</li>
+                            <li>Automated SMS Review Requests (linked to paid Xero invoices)</li>
                             <li>Real-Time Review Tracking</li>
-                            <li>CRM/Job App Integrations</li>
-                            <li>Customizable Message Templates</li>
-                            <li>Auto-Follow-Ups</li>
-                            <li>Google My Business Integration</li>
+                            <li>Customisable Templates</li>
+                            <li>Auto Follow-Ups</li>
+                            <li>Direct Google My Business Integration</li>
                             <li>Dedicated Support</li>
-                            <li>No Lock-in Contracts</li>
+                            <li>No Lock-In Contracts</li>
                         </ul>
-                        <button class="btn btn-primary">Get Started</button>
+                        <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Start Your Free Setup →</a>
                     </div>
                 </div>
             </div>
@@ -1110,21 +1026,21 @@
                 <div class="faq-list">
                     <div class="faq-item">
                         <div class="faq-question">
-                            How does ZEUS help my business get more Google reviews?
+                            How does Zeus get me more Google reviews?
                             <span class="arrow">▼</span>
                         </div>
                         <div class="faq-answer">
-                            <p>ZEUS automates the process of requesting reviews from your customers via SMS and email. After a transaction or service, a personalized message is sent to your customer with a direct link to leave a Google review. This frictionless process significantly increases your review rate compared to manual methods.</p>
+                            <p>Every time you mark an invoice as Paid in Xero, Zeus sends an SMS with a direct link to your Google review page. This removes all friction and makes it incredibly easy for customers to leave feedback, which dramatically boosts your response rates.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question">
-                            Is ZEUS compatible with my existing CRM or job management software?
+                            Do I need anything other than Xero?
                             <span class="arrow">▼</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes! ZEUS is designed for seamless integration with many popular CRM and job management applications such as Tradify, ServiceM8, and others. This allows you to trigger review requests directly from your existing workflows without manual data entry.</p>
+                            <p>Yes — Zeus is designed exclusively for Xero users. You will also need an active Google Business Profile to get started.</p>
                         </div>
                     </div>
 
@@ -1134,27 +1050,27 @@
                             <span class="arrow">▼</span>
                         </div>
                         <div class="faq-answer">
-                            <p>ZEUS focuses on encouraging positive reviews. While we can't prevent negative reviews on Google, our system streamlines the process for satisfied customers, naturally increasing your overall positive review volume. We recommend engaging with all reviews, positive or negative, professionally on your Google My Business profile.</p>
+                            <p>You’ll get notified instantly, so you can respond quickly and professionally on your Google Business Profile. While Zeus focuses on encouraging positive reviews, we believe that responding to all feedback, both good and bad, is crucial for building trust.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question">
-                            Is there a long-term contract or commitment required?
+                            Is there a long-term contract?
                             <span class="arrow">▼</span>
                         </div>
                         <div class="faq-answer">
-                            <p>No, there are no lock-in contracts. ZEUS operates on a simple monthly subscription of $49.99, and you can cancel anytime. We believe in earning your business every month through the value we provide.</p>
+                            <p>No. Our service is month-to-month, and you can cancel anytime, no questions asked. We're confident in the value we provide, so we don't believe in lock-in contracts.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question">
-                            How quickly will I see results?
+                            How soon will I see results?
                             <span class="arrow">▼</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Many of our clients begin to see a significant increase in their Google reviews within the first 2 weeks of using ZEUS, with some reporting a 30% or more uplift. The speed of results can depend on your customer volume and engagement.</p>
+                            <p>Most customers start seeing new reviews within the first week of setting up Zeus. The more invoices you send, the more review requests are automatically generated, leading to faster results.</p>
                         </div>
                     </div>
                 </div>
@@ -1215,46 +1131,6 @@
             });
         });
 
-        // --- Parallax Logic (with enhanced mobile adjustment) ---
-        const parallaxImage = document.getElementById('parallax-image');
-        const heroSection = document.querySelector('.hero-section');
-        const textContentDiv = document.querySelector('.hero-content');
-
-        function updateParallaxAndWidth() {
-            const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-            const heroRect = heroSection.getBoundingClientRect();
-            const scrollAmount = -heroRect.top; // How much the hero section has scrolled up
-
-            // Define different parallax factors and hidden percentages for mobile vs. desktop
-            let parallaxFactor;
-            let hiddenPercentage; // How much of the image is initially hidden on the left
-
-            if (viewportWidth < 768) { // Mobile devices
-                parallaxImage.style.width = '120%'; // Keep a slightly larger width for the image on mobile
-                parallaxFactor = 0.3; // Make the image move faster (more drastic effect)
-                hiddenPercentage = 0.3; // Start with more of the image hidden (e.g., 30%)
-            } else { // Desktop and larger tablets
-                parallaxImage.style.width = `${textContentDiv.clientWidth}px`; // Match text content width
-                parallaxFactor = 0.2; // Original desktop parallax speed
-                hiddenPercentage = 0.15; // Original desktop hidden amount
-            }
-
-            const initialHiddenOffset = -parallaxImage.clientWidth * hiddenPercentage;
-            
-            // Calculate translation based on scroll amount and parallax factor
-            let scrollTranslation = scrollAmount * parallaxFactor;
-
-            // Ensure the image doesn't move past its final, fully-revealed position (translateX = 0)
-            let finalTranslateX = initialHiddenOffset + scrollTranslation;
-            finalTranslateX = Math.min(finalTranslateX, 0); // Cap the movement at 0 (fully visible)
-
-            parallaxImage.style.transform = `translateX(${finalTranslateX}px)`;
-        }
-
-        window.addEventListener('scroll', updateParallaxAndWidth);
-        window.addEventListener('load', updateParallaxAndWidth);
-        window.addEventListener('resize', updateParallaxAndWidth);
-
         // --- FAQ Accordion Logic ---
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -1273,24 +1149,6 @@
                 answer.classList.toggle('open');
                 question.classList.toggle('active');
             });
-        });
-
-        // --- How It Works - Software Integration Logic ---
-        const businessSoftwareSelect = document.getElementById('business-software-select');
-        const integrationMessage = document.getElementById('integration-message');
-        const getStartedButtonContainer = document.getElementById('get-started-button-container');
-
-        businessSoftwareSelect.addEventListener('change', (event) => {
-            const selectedSoftware = event.target.value;
-
-            if (selectedSoftware) {
-                integrationMessage.innerHTML = `Great! ZEUS integrates with <strong>${selectedSoftware}</strong> in seconds!<br>Next: set up your ZEUS account to get started`;
-                integrationMessage.style.display = 'block';
-                getStartedButtonContainer.style.display = 'block';
-            } else {
-                integrationMessage.style.display = 'none';
-                getStartedButtonContainer.style.display = 'none';
-            }
         });
     </script>
 </body>
