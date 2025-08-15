@@ -214,36 +214,55 @@
             }
         }
 
-        /* Hero Section - Updated to Light Background */
+        /* Hero Section - Updated Layout */
         .hero-section {
-            background-color: #ffffff; /* Clean white background */
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             position: relative;
             overflow: hidden;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #1f2937; /* Dark text on light background */
-            margin-top: -50px; /* Negative margin equal to header height */
-            padding-top: 100px; /* Add padding equal to header height to push content down */
-            box-sizing: border-box; /* Include padding in height calculation */
+            color: #1f2937;
+            margin-top: -50px;
+            padding-top: 100px;
+            box-sizing: border-box;
         }
-        
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
         .hero-content {
-            text-align: center;
-            padding: 2rem;
-            max-width: 40rem;
-            margin-left: 1rem;
-            margin-right: 1rem;
+            text-align: left;
+            padding: 2rem 0;
             position: relative;
             z-index: 10;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-content {
+                text-align: center;
+            }
         }
 
         .hero-content h1 {
             font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.25;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
             color: #1f2937;
         }
 
@@ -253,88 +272,77 @@
             }
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
             .hero-content h1 {
-                font-size: 3.75rem;
+                font-size: 3.5rem;
+                line-height: 1.1;
             }
         }
 
         .hero-content p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 2rem;
             color: #4b5563;
+            line-height: 1.6;
         }
 
-        @media (min-width: 640px) {
+        @media (min-width: 1024px) {
             .hero-content p {
-                font-size: 1.125rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-content p {
-                font-size: 1.25rem;
+                font-size: 1.2rem;
+                margin-bottom: 2.5rem;
             }
         }
 
         .hero-price-display {
-            font-size: 3rem; /* Matches pricing card .price */
-            font-weight: 800; /* Matches pricing card .price */
-            color: #2563eb; /* Blue color for price */
-            margin-bottom: 0.5rem; /* Consistent spacing */
-            line-height: 1; /* Consistent line height */
-            display: block; /* Ensures it takes its own line */
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            display: block;
         }
 
         .hero-price-display span {
-            font-size: 1.25rem; /* Matches pricing card .price span */
-            font-weight: 400; /* Matches pricing card .price span */
-            color: #4b5563; /* Gray for the "/month" part */
-        }
-
-        .hero-frequency-info {
-            font-size: 1.125rem; /* Matches pricing card .frequency */
-            color: #6b7280; /* Gray for visibility */
-            margin-bottom: 1.5rem; /* Consistent spacing */
-            display: block; /* Ensures it takes its own line */
-        }
-
-        .hero-additional-info {
-            font-size: 1rem; /* Adjust if needed, or keep original price-info p size */
+            font-size: 1.1rem;
             font-weight: 400;
             color: #4b5563;
-            margin-top: 1rem; /* Adjust margin as needed after the price */
-            margin-bottom: 1.5rem;
         }
 
         @media (min-width: 640px) {
+            .hero-price-display {
+                font-size: 3rem;
+            }
+            .hero-price-display span {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
             .hero-price-display {
                 font-size: 3.5rem;
             }
             .hero-price-display span {
                 font-size: 1.5rem;
             }
-            .hero-frequency-info {
-                font-size: 1.25rem;
-            }
         }
 
-        @media (min-width: 768px) {
-            .hero-price-display {
-                font-size: 4rem;
-            }
-            .hero-price-display span {
-                font-size: 1.75rem;
-            }
+        .hero-frequency-info {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        @media (min-width: 1024px) {
             .hero-frequency-info {
-                font-size: 1.5rem;
+                font-size: 1.1rem;
+                margin-bottom: 2.5rem;
             }
         }
 
         .hero-buttons {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             gap: 1rem;
             margin-top: 2rem;
         }
@@ -342,7 +350,110 @@
         @media (min-width: 640px) {
             .hero-buttons {
                 flex-direction: row;
+                align-items: center;
             }
+        }
+
+        @media (min-width: 1024px) and (max-width: 1023px) {
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Hero Visual Section */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .hero-images-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 500px;
+        }
+
+        .hero-image {
+            position: absolute;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-image-main {
+            top: 0;
+            right: 0;
+            width: 70%;
+            height: auto;
+            z-index: 2;
+            transform: rotate(2deg);
+        }
+
+        .hero-image-secondary {
+            bottom: 0;
+            left: 0;
+            width: 60%;
+            height: auto;
+            z-index: 1;
+            transform: rotate(-3deg);
+        }
+
+        @media (max-width: 1023px) {
+            .hero-images-container {
+                max-width: 500px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-images-container {
+                height: 300px;
+            }
+            .hero-image-main {
+                width: 75%;
+            }
+            .hero-image-secondary {
+                width: 65%;
+            }
+        }
+
+        /* Floating elements for visual interest */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #2563eb15, #3b82f615);
+            border-radius: 50%;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            left: 5%;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #10b98115, #059c6915);
+            border-radius: 50%;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         /* Common Button Styles */
@@ -359,7 +470,7 @@
             justify-content: center;
             white-space: nowrap;
             cursor: pointer;
-            font-size: 1rem; /* Ensure consistent font size for all hero buttons */
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -820,25 +931,30 @@
 
     <main>
         <section class="hero-section">
-            <div class="hero-content">
-                <h1>
-                    Turn Paid Xero Invoices Into 5-Star Google Reviews — Automatically
-                </h1>
-                <p>
-                    Exclusive for Xero customers with a Google Business Profile.<br><br>Stop chasing reviews. With Zeus, every time you mark an invoice as Paid in Xero, your customer instantly gets a personalized SMS with a direct link to leave you a Google review. No follow-up calls. No admin. Just more stars, more trust, more business.
-                </p>
-                
-                <div class="hero-price-display">
-                    $49.99<span>/month</span>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Turn Paid Xero Invoices Into 5-Star Google Reviews — Automatically</h1>
+                    <p>Exclusive for Xero customers with a Google Business Profile.<br><br>Stop chasing reviews. With Zeus, every time you mark an invoice as Paid in Xero, your customer instantly gets a personalized SMS with a direct link to leave you a Google review. No follow-up calls. No admin. Just more stars, more trust, more business.</p>
+                    
+                    <div class="hero-price-display">
+                        $49.99<span>/month</span>
+                    </div>
+                    <p class="hero-frequency-info">
+                        - Cancel anytime
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <a href="https://app.zeusreviews.com/login" class="btn btn-primary">
+                            Get Started Today →
+                        </a>
+                    </div>
                 </div>
-                <p class="hero-frequency-info">
-                    - Cancel anytime
-                </p>
-                
-                <div class="hero-buttons">
-                    <a href="https://app.zeusreviews.com/login" class="btn btn-primary">
-                        Get Started Today →
-                    </a>
+
+                <div class="hero-visual">
+                    <div class="hero-images-container">
+                        <img src="https://github.com/mmp03patane/ZEUS/blob/main/Untitled%20design%20(1).png?raw=true" alt="Zeus Dashboard Interface" class="hero-image hero-image-main">
+                        <img src="https://github.com/mmp03patane/ZEUS/blob/main/Screenshot_20250815_142452.jpg?raw=true" alt="SMS Review Request Example" class="hero-image hero-image-secondary">
+                    </div>
                 </div>
             </div>
         </section>
