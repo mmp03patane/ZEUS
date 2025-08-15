@@ -236,11 +236,12 @@
             grid-template-columns: 1fr;
             gap: 3rem;
             align-items: center;
+            position: relative; /* Essential for positioning the images */
         }
 
         @media (min-width: 1024px) {
             .hero-container {
-                grid-template-columns: 1fr 1fr; /* Two columns for content and images */
+                grid-template-columns: 1fr 1fr;
                 gap: 2rem;
             }
         }
@@ -360,36 +361,43 @@
             }
         }
 
-        /* Hero Visual Section - Updated for transparent overlay effect */
+        /* Hero Visual Section */
         .hero-visual {
-            position: relative;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            align-items: flex-end; /* Align images to the bottom */
             justify-content: center;
-            gap: 1rem;
+            position: relative;
             min-height: 400px;
-            padding: 2rem;
-            background-color: transparent; /* Changed to transparent */
-            box-shadow: none; /* Removed box shadow */
+            padding: 2rem 0;
+            gap: 1rem;
         }
 
         @media (min-width: 1024px) {
             .hero-visual {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                top: 33.333333%; /* Places the top of the container at 1/3 down the hero section */
+                display: flex;
                 flex-direction: row;
-                gap: 2rem;
-                padding: 3rem;
+                justify-content: flex-start; /* Aligns content to the left of the container */
+                align-items: flex-end; /* Aligns the images to the bottom of this container */
+                width: 50%; /* Takes up half the hero container's width */
+                min-height: 0;
+                padding: 0;
             }
         }
 
         .hero-image {
             transition: transform 0.3s ease;
             width: 100%;
-            max-width: 250px;
             height: auto;
-            background-color: transparent; /* Ensure the image background is transparent */
-            border-radius: 0; /* No border-radius on images themselves */
-            box-shadow: none; /* No box shadow on the images */
+            max-width: 250px;
+        }
+
+        /* Specific size for the Google Reviews image */
+        .hero-image.google-reviews {
+            max-width: 125px; /* 50% smaller than the Xero phone image */
         }
 
         .hero-image:hover {
@@ -398,17 +406,36 @@
 
         @media (min-width: 1024px) {
             .hero-image {
-                flex: 1;
-                max-width: 300px;
+                max-width: 300px; /* Base size for the Xero image on desktop */
+                margin-left: 2rem; /* Small space from the text */
+            }
+
+            .hero-image.google-reviews {
+                max-width: 150px; /* 50% smaller than the new desktop base size */
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 1023px) {
+            /* Mobile-specific styles for images */
+            .hero-visual {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 1rem;
+                min-height: auto;
+                margin-top: 2rem; /* Add spacing between text and images */
+            }
+
             .hero-image {
-                max-width: 180px;
+                max-width: 180px; /* Normal size for mobile */
+            }
+
+            .hero-image.google-reviews {
+                max-width: 90px; /* 50% smaller for mobile */
             }
         }
-
+        
         /* Common Button Styles */
         .btn {
             padding: 0.75rem 2rem;
@@ -905,7 +932,7 @@
 
                 <div class="hero-visual">
                     <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero%20Phone.png?raw=true" alt="Xero Integration on Phone" class="hero-image">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google%20Reviews.png?raw=true" alt="Google Reviews Interface" class="hero-image">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google%20Reviews.png?raw=true" alt="Google Reviews Interface" class="hero-image google-reviews">
                 </div>
             </div>
         </section>
