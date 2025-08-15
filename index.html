@@ -240,7 +240,7 @@
 
         @media (min-width: 1024px) {
             .hero-container {
-                grid-template-columns: 1fr 1fr; /* Updated to 2 columns */
+                grid-template-columns: 1fr 1fr; /* Two columns for content and images */
                 gap: 2rem;
             }
         }
@@ -359,20 +359,24 @@
                 justify-content: center;
             }
         }
-        
-        /* New Hero Image container and styling */
-        .hero-images-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+        /* Hero Visual Section - Updated for transparent overlay effect */
+        .hero-visual {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
             min-height: 400px;
             padding: 2rem;
-            gap: 1rem;
+            background-color: transparent; /* Changed to transparent */
+            box-shadow: none; /* Removed box shadow */
         }
 
         @media (min-width: 1024px) {
-            .hero-images-container {
+            .hero-visual {
+                flex-direction: row;
                 gap: 2rem;
                 padding: 3rem;
             }
@@ -383,8 +387,9 @@
             width: 100%;
             max-width: 250px;
             height: auto;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background-color: transparent; /* Ensure the image background is transparent */
+            border-radius: 0; /* No border-radius on images themselves */
+            box-shadow: none; /* No box shadow on the images */
         }
 
         .hero-image:hover {
@@ -394,7 +399,7 @@
         @media (min-width: 1024px) {
             .hero-image {
                 flex: 1;
-                max-width: 300px; /* Adjust as needed */
+                max-width: 300px;
             }
         }
 
@@ -898,7 +903,7 @@
                     </div>
                 </div>
 
-                <div class="hero-images-container">
+                <div class="hero-visual">
                     <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero%20Phone.png?raw=true" alt="Xero Integration on Phone" class="hero-image">
                     <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google%20Reviews.png?raw=true" alt="Google Reviews Interface" class="hero-image">
                 </div>
