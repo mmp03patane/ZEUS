@@ -219,7 +219,7 @@
             background-color: #ffffff; /* Clean white background */
             position: relative;
             overflow: hidden;
-            min-height: 90vh;
+            min-height: 70vh; /* Reduced height from 90vh */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -830,10 +830,9 @@
         /* --- Hero Animation Styles (New) --- */
         .hero-animation-container {
             position: relative;
-            height: 5rem; /* Adjusted height to prevent cutoff */
+            height: 10rem; /* Increased height to prevent clipping */
             overflow: hidden;
-            margin-bottom: 1rem; /* Space below the animating text */
-            padding-top: 0.5rem; /* Added padding to fix top cutoff */
+            margin-bottom: 1rem;
         }
 
         .text-scroll {
@@ -842,7 +841,7 @@
             left: 50%;
             transform: translateX(-50%);
             white-space: nowrap;
-            animation: text-scroll-animation 10s infinite; /* Timing adjusted for a smooth loop */
+            animation: text-scroll-animation 10s infinite;
         }
 
         /* The keyframes for the vertical text scroll */
@@ -854,26 +853,26 @@
                 transform: translateX(-50%) translateY(0%);
             }
             33% {
-                transform: translateX(-50%) translateY(-100%);
+                transform: translateX(-50%) translateY(-33.33%); /* Adjusted for 3 lines */
             }
             58% {
-                transform: translateX(-50%) translateY(-100%);
+                transform: translateX(-50%) translateY(-33.33%);
             }
             66% {
-                transform: translateX(-50%) translateY(-200%);
+                transform: translateX(-50%) translateY(-66.66%); /* Adjusted for 3 lines */
             }
             91% {
-                transform: translateX(-50%) translateY(-200%);
+                transform: translateX(-50%) translateY(-66.66%);
             }
             100% {
-                transform: translateX(-50%) translateY(-300%);
+                transform: translateX(-50%) translateY(-100%); /* Final position is off-screen */
             }
         }
         
         .hero-stars {
-            font-size: 3rem; /* Same size as h1 for consistency */
+            font-size: 3rem;
             animation: stars-in 2s forwards;
-            display: inline-block; /* Allows each star to be animated individually */
+            display: inline-block;
             opacity: 0;
         }
 
@@ -887,7 +886,7 @@
             opacity: 0;
             transform: translateX(-100%);
             animation: slide-in 1s forwards;
-            animation-delay: 9s; /* Delay the button until after the text animation cycle */
+            animation-delay: 9s;
         }
 
         @keyframes slide-in {
