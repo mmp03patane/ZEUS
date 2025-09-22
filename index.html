@@ -777,7 +777,7 @@
             text-align: center;
         }
 
-        /* --- New Logo Banner Styles --- */
+        /* --- Logo Banner Styles --- */
         .logo-banner {
             background-color: #f9fafb;
             padding: 2rem 0;
@@ -824,6 +824,79 @@
             .logo-scroll-track img {
                 height: 30px;
                 margin: 0 1.5rem;
+            }
+        }
+
+        /* --- Hero Animation Styles (New) --- */
+        .hero-animation-container {
+            position: relative;
+            height: 5rem; /* Adjust height based on font size to prevent layout shifts */
+            overflow: hidden;
+            margin-bottom: 1rem; /* Space below the animating text */
+        }
+
+        .text-scroll {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: text-scroll-animation 10s infinite; /* Timing adjusted for a smooth loop */
+        }
+
+        /* The keyframes for the vertical text scroll */
+        @keyframes text-scroll-animation {
+            0% {
+                transform: translateX(-50%) translateY(0%);
+            }
+            25% {
+                transform: translateX(-50%) translateY(0%);
+            }
+            33% {
+                transform: translateX(-50%) translateY(-100%);
+            }
+            58% {
+                transform: translateX(-50%) translateY(-100%);
+            }
+            66% {
+                transform: translateX(-50%) translateY(-200%);
+            }
+            91% {
+                transform: translateX(-50%) translateY(-200%);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-300%);
+            }
+        }
+        
+        .hero-stars {
+            font-size: 3rem; /* Same size as h1 for consistency */
+            animation: stars-in 2s forwards;
+            display: inline-block; /* Allows each star to be animated individually */
+            opacity: 0;
+        }
+
+        /* Star fade-in animation */
+        @keyframes stars-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .hero-buttons {
+            opacity: 0;
+            transform: translateX(-100%);
+            animation: slide-in 1s forwards;
+            animation-delay: 9s; /* Delay the button until after the text animation cycle */
+        }
+
+        @keyframes slide-in {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
     </style>
@@ -873,9 +946,13 @@
     <main>
         <section class="hero-section">
             <div class="hero-content">
-                <h1>
-                    Turn Xero Invoices Into 5-Star Google Reviews
-                </h1>
+                <div class="hero-animation-container">
+                    <h1 class="text-scroll">
+                        Turn Xero Invoices<br>
+                        Into Google Reviews<br>
+                        <span id="stars-container"></span><br>
+                    </h1>
+                </div>
                 <p>
                     Exclusive for Xero customers with a Google Business Profile.
                 </p>
@@ -1146,6 +1223,51 @@
                 answer.classList.toggle('open');
                 question.classList.toggle('active');
             });
+        });
+
+        // --- New Hero Animation Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const starsContainer = document.getElementById('stars-container');
+            const heroText = document.querySelector('.text-scroll');
+            const lines = heroText.innerHTML.split('<br>');
+            const starsHTML = '<span class="hero-star">⭐</span>'.repeat(5);
+
+            heroText.innerHTML = lines[0]; // Start with the first line
+
+            // Animate stars
+            function animateStars() {
+                starsContainer.innerHTML = '';
+                const stars = starsHTML.split('</span>').slice(0, 5); // Ensure we have 5 star elements
+                stars.forEach((star, index) => {
+                    setTimeout(() => {
+                        starsContainer.innerHTML += star + '</span>';
+                    }, index * 200); // 200ms delay between each star
+                });
+            }
+
+            // Manually handle the text and star animation cycle
+            let cycleCount = 0;
+            const cycleDuration = 3000; // 3 seconds per line
+            const totalDuration = cycleDuration * 3; // 3 lines
+
+            function startAnimationCycle() {
+                heroText.style.animation = 'none';
+                setTimeout(() => {
+                    heroText.style.animation = 'text-scroll-animation 10s infinite';
+                }, 10);
+            }
+
+            heroText.addEventListener('animationiteration', () => {
+                cycleCount++;
+                if (cycleCount % 3 === 2) { // The third item (stars)
+                    animateStars();
+                } else {
+                    starsContainer.innerHTML = '';
+                }
+            });
+
+            // Run on page load
+            startAnimationCycle();
         });
     </script>
 </body>
