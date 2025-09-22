@@ -830,9 +830,10 @@
         /* --- Hero Animation Styles (New) --- */
         .hero-animation-container {
             position: relative;
-            height: 5rem; /* Adjust height based on font size to prevent layout shifts */
+            height: 5rem; /* Adjusted height to prevent cutoff */
             overflow: hidden;
             margin-bottom: 1rem; /* Space below the animating text */
+            padding-top: 0.5rem; /* Added padding to fix top cutoff */
         }
 
         .text-scroll {
