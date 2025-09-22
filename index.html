@@ -776,6 +776,56 @@
         .footer .container {
             text-align: center;
         }
+
+        /* --- New Logo Banner Styles --- */
+        .logo-banner {
+            background-color: #f9fafb;
+            padding: 2rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .logo-scroll-track {
+            display: inline-block;
+            animation: scroll-logos 25s linear infinite;
+        }
+
+        .logo-scroll-track img {
+            height: 40px; /* Adjust logo height as needed */
+            margin: 0 2rem;
+            vertical-align: middle;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-scroll-track img:hover {
+            opacity: 1;
+        }
+
+        @keyframes scroll-logos {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Duplicate the track to create the seamless loop */
+        .logo-scroll-track.duplicate {
+            position: absolute;
+            top: 2rem;
+            left: 100%;
+        }
+
+        /* Media Queries for different logo heights on different screen sizes */
+        @media (max-width: 767px) {
+            .logo-scroll-track img {
+                height: 30px;
+                margin: 0 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -838,6 +888,21 @@
             </div>
         </section>
 
+        <section class="logo-banner">
+            <div class="logo-scroll-track">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
+            </div>
+            <div class="logo-scroll-track duplicate">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
+            </div>
+        </section>
+        
         <section id="how-it-works" class="section-padding bg-white">
             <div class="container">
                 <h2 class="section-title">How It Works</h2>
@@ -859,7 +924,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 3rem;">
-                     <a href="#pricing" class="btn btn-primary">
+                    <a href="#pricing" class="btn btn-primary">
                         Ready to Get Started?
                     </a>
                 </div>
@@ -925,7 +990,7 @@
                 <div class="pricing-content">
                     <div class="pricing-card">
                         <h3>Growth Plan</h3>
-                       
+                        
                         <ul>
                             <li>Automated SMS Review Requests (linked to paid Xero invoices)</li>
                             <li>Real-Time Review Tracking</li>
