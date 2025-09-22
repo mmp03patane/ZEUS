@@ -345,6 +345,26 @@
             }
         }
 
+        /* Hero Star Rating */
+        .hero-stars {
+            font-size: 2rem;
+            color: #fbbf24; /* Yellow/gold color for stars */
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        @media (min-width: 640px) {
+            .hero-stars {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-stars {
+                font-size: 3rem;
+            }
+        }
+
         /* Common Button Styles */
         .btn {
             padding: 0.75rem 2rem;
@@ -826,79 +846,6 @@
                 margin: 0 1.5rem;
             }
         }
-
-        /* --- Fixed Hero Animation Styles --- */
-        .hero-animation-container {
-            position: relative;
-            height: 5rem; /* Fixed height to prevent jumping */
-            overflow: hidden;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .animated-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            white-space: nowrap;
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.25;
-            color: #1f2937;
-        }
-
-        .animated-text.active {
-            opacity: 1;
-        }
-
-        @media (min-width: 640px) {
-            .animated-text {
-                font-size: 3rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .animated-text {
-                font-size: 3.75rem;
-            }
-        }
-
-        .star {
-            display: inline-block;
-            opacity: 0;
-            transform: scale(0);
-            animation: starPop 0.3s ease-out forwards;
-        }
-
-        @keyframes starPop {
-            0% {
-                opacity: 0;
-                transform: scale(0);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .hero-buttons {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
-        }
-
-        .hero-buttons.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
@@ -946,17 +893,8 @@
     <main>
         <section class="hero-section">
             <div class="hero-content">
-                <div class="hero-animation-container">
-                    <div class="animated-text" id="text1">Turn Xero Invoices</div>
-                    <div class="animated-text" id="text2">Into Google Reviews</div>
-                    <div class="animated-text" id="text3">
-                        <span class="star">⭐</span>
-                        <span class="star">⭐</span>
-                        <span class="star">⭐</span>
-                        <span class="star">⭐</span>
-                        <span class="star">⭐</span>
-                    </div>
-                </div>
+                <h1>Turn Xero Invoices<br>Into Google Reviews</h1>
+                <div class="hero-stars">⭐⭐⭐⭐⭐</div>
                 <p>
                     Exclusive for Xero customers with a Google Business Profile.
                 </p>
@@ -977,300 +915,4 @@
                 <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
             </div>
             <div class="logo-scroll-track duplicate">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
-                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
-            </div>
-        </section>
-        
-        <section id="how-it-works" class="section-padding bg-white">
-            <div class="container">
-                <h2 class="section-title">How It Works</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Zeus is built exclusively for Xero users who want more Google reviews without the manual follow-up.</p>
-
-                <div class="how-it-works-cards">
-                    <div class="how-it-works-card">
-                        <h3>1. Connect in Minutes</h3>
-                        <p>Securely link your Xero account and Google Business Profile to Zeus. It's a quick, one-time setup that takes just a few minutes.</p>
-                    </div>
-                    <div class="how-it-works-card">
-                        <h3>2. Trigger on Payment</h3>
-                        <p>Whenever you mark an invoice as 'Paid' in Xero, Zeus instantly detects the change and automatically sends a personalized review request to your customer via SMS.</p>
-                    </div>
-                    <div class="how-it-works-card">
-                        <h3>3. Collect Reviews on Autopilot</h3>
-                        <p>The customer receives the SMS, taps the direct link, and is taken straight to your Google review page. It's a frictionless process that makes getting 5-star feedback easy.</p>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 3rem;">
-                    <a href="#pricing" class="btn btn-primary">
-                        Ready to Get Started?
-                    </a>
-                </div>
-                
-            </div>
-        </section>
-
-        <section id="features" class="section-padding bg-gray-100">
-            <div class="container">
-                <h2 class="section-title">Features</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Explore the powerful capabilities of ZEUS that make review collection effortless and effective.</p>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <span class="icon">📩</span>
-                        <div>
-                            <h4>Automated SMS Review Requests</h4>
-                            <p>Every paid invoice in Xero triggers a personalised SMS inviting your customer to review you on Google.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📊</span>
-                        <div>
-                            <h4>Live Review Tracking</h4>
-                            <p>See your incoming Google reviews in real time from your Zeus dashboard.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">⚡</span>
-                        <div>
-                            <h4>Instant Xero Integration</h4>
-                            <p>Seamlessly connects with your Xero account using webhooks to detect when invoices are marked as paid in real-time.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📞</span>
-                        <div>
-                            <h4>Smart Phone Number Detection</h4>
-                            <p>Automatically extracts and formats customer phone numbers from your Xero contacts for reliable SMS delivery.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📍</span>
-                        <div>
-                            <h4>Direct Google Link</h4>
-                            <p>One tap takes customers straight to your Google review form — no searching required.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔒</span>
-                        <div>
-                            <h4>Secure & Compliant</h4>
-                            <p>Your customer data is safe and handled to strict privacy standards with enterprise-grade security.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pricing" class="section-padding bg-white">
-            <div class="container">
-                <h2 class="section-title">Pricing</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Simple, transparent pricing to help your business grow without hidden fees.</p>
-                <div class="pricing-content">
-                    <div class="pricing-card">
-                        <h3>Growth Plan</h3>
-                        
-                        <ul>
-                            <li>Automated SMS Review Requests (linked to paid Xero invoices)</li>
-                            <li>Real-Time Review Tracking</li>
-                            <li>Instant Xero Webhook Integration</li>
-                            <li>Smart Phone Number Detection</li>
-                            <li>Direct Google My Business Integration</li>
-                            <li>Dedicated Support</li>
-                            <li>No Lock-In Contracts</li>
-                        </ul>
-                        <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Start Your Free Setup →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="section-padding bg-gray-100">
-            <div class="container">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            How does Zeus get me more Google reviews?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Every time you mark an invoice as Paid in Xero, Zeus automatically detects this change through secure webhooks and sends an SMS with a direct link to your Google review page. This removes all friction and makes it incredibly easy for customers to leave feedback, which dramatically boosts your response rates.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            Do I need anything other than Xero?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes — Zeus is designed exclusively for Xero users. You will also need an active Google Business Profile and your customers need to have phone numbers stored in your Xero contacts for SMS delivery to work.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            What if my customer doesn't have a phone number in Xero?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Zeus will simply skip sending an SMS for that invoice. We recommend ensuring your Xero contacts have phone numbers for the best results. You can always add phone numbers to existing contacts and future invoices will trigger SMS requests.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            What if a customer leaves a negative review?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>You'll get notified instantly through your Zeus dashboard, so you can respond quickly and professionally on your Google Business Profile. While Zeus focuses on encouraging positive reviews, we believe that responding to all feedback, both good and bad, is crucial for building trust.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            Is there a long-term contract?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>No. Our service is month-to-month, and you can cancel anytime, no questions asked. We're confident in the value we provide, so we don't believe in lock-in contracts.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            How soon will I see results?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Most customers start seeing new reviews within the first week of setting up Zeus. The more invoices you mark as paid, the more review requests are automatically generated, leading to faster results.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section-padding bg-white">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title">Contact Us</h2>
-                <p style="margin-bottom: 2rem; font-size: 1.1rem; color: #4b5563;">Have more questions or ready to get started? Reach out to us!</p>
-                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb;">Email: <a href="mailto:info@zeusreviews.com" style="color: #2563eb; text-decoration: none;">info@zeusreviews.com</a></p>
-                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb; margin-top: 1rem;">Phone: <a href="tel:+61412345678" style="color: #2563eb; text-decoration: none;">+61 412 345 678</a></p>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 ZEUS. All rights reserved.</p>
-            <p style="margin-top: 0.5rem;"><a href="https://zeusapp.co/privacypolicy" target="_blank" rel="noopener noreferrer" style="color: #ffffff; text-decoration: none;">Privacy Policy</a></p>
-        </div>
-    </footer>
-
-    <script>
-        // --- Mobile Navigation Toggle ---
-        const hamburgerButton = document.getElementById('hamburger-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        hamburgerButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-        });
-
-        // Close mobile menu when a link is clicked
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
-
-        // --- Smooth Scrolling for Navigation Links ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    const headerOffset = document.querySelector('.header').offsetHeight; // Get height of fixed header
-                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = elementPosition - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
-
-        // --- FAQ Accordion Logic ---
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const arrow = question.querySelector('.arrow');
-
-                // Close other open answers
-                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
-                    if (openAnswer !== answer) {
-                        openAnswer.classList.remove('open');
-                        openAnswer.previousElementSibling.classList.remove('active');
-                    }
-                });
-
-                // Toggle current answer
-                answer.classList.toggle('open');
-                question.classList.toggle('active');
-            });
-        });
-
-        // --- Hero Animation Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const text1 = document.getElementById('text1');
-            const text2 = document.getElementById('text2');
-            const text3 = document.getElementById('text3');
-            const heroButtons = document.querySelector('.hero-buttons');
-            const stars = text3.querySelectorAll('.star');
-
-            // Animation sequence
-            function startAnimation() {
-                // Show first text
-                text1.classList.add('active');
-                
-                setTimeout(() => {
-                    // Hide first text, show second text
-                    text1.classList.remove('active');
-                    text2.classList.add('active');
-                }, 2000);
-                
-                setTimeout(() => {
-                    // Hide second text, show stars container
-                    text2.classList.remove('active');
-                    text3.classList.add('active');
-                    
-                    // Animate stars one by one
-                    stars.forEach((star, index) => {
-                        setTimeout(() => {
-                            star.style.animationDelay = '0s';
-                            star.style.opacity = '1';
-                        }, index * 200);
-                    });
-                }, 4000);
-                
-                setTimeout(() => {
-                    // Show buttons
-                    heroButtons.classList.add('show');
-                }, 6500);
-            }
-
-            // Start the animation
-            startAnimation();
-        });
-    </script>
-</body>
-</html>
+                <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt
