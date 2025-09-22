@@ -827,77 +827,77 @@
             }
         }
 
-        /* --- Hero Animation Styles (New) --- */
+        /* --- Fixed Hero Animation Styles --- */
         .hero-animation-container {
             position: relative;
-            height: 10rem; /* Increased height to prevent clipping */
+            height: 5rem; /* Fixed height to prevent jumping */
             overflow: hidden;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .text-scroll {
+        .animated-text {
             position: absolute;
-            top: 0;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
             white-space: nowrap;
-            animation: text-scroll-animation 10s infinite;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            color: #1f2937;
         }
 
-        /* The keyframes for the vertical text scroll */
-        @keyframes text-scroll-animation {
-            0% {
-                transform: translateX(-50%) translateY(0%);
-            }
-            25% {
-                transform: translateX(-50%) translateY(0%);
-            }
-            33% {
-                transform: translateX(-50%) translateY(-33.33%); /* Adjusted for 3 lines */
-            }
-            58% {
-                transform: translateX(-50%) translateY(-33.33%);
-            }
-            66% {
-                transform: translateX(-50%) translateY(-66.66%); /* Adjusted for 3 lines */
-            }
-            91% {
-                transform: translateX(-50%) translateY(-66.66%);
-            }
-            100% {
-                transform: translateX(-50%) translateY(-100%); /* Final position is off-screen */
+        .animated-text.active {
+            opacity: 1;
+        }
+
+        @media (min-width: 640px) {
+            .animated-text {
+                font-size: 3rem;
             }
         }
-        
-        .hero-stars {
-            font-size: 3rem;
-            animation: stars-in 2s forwards;
+
+        @media (min-width: 768px) {
+            .animated-text {
+                font-size: 3.75rem;
+            }
+        }
+
+        .star {
             display: inline-block;
             opacity: 0;
+            transform: scale(0);
+            animation: starPop 0.3s ease-out forwards;
         }
 
-        /* Star fade-in animation */
-        @keyframes stars-in {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes starPop {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .hero-buttons {
             opacity: 0;
-            transform: translateX(-100%);
-            animation: slide-in 1s forwards;
-            animation-delay: 9s;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
         }
 
-        @keyframes slide-in {
-            0% {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .hero-buttons.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -928,7 +928,7 @@
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign in</a></li>
-<li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
+                <li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
             </ul>
         </nav>
 
@@ -938,8 +938,8 @@
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
-<li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign In</a></li>
-<li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
+            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign In</a></li>
+            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
         </ul>
     </header>
 
@@ -947,11 +947,15 @@
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-animation-container">
-                    <h1 class="text-scroll">
-                        Turn Xero Invoices<br>
-                        Into Google Reviews<br>
-                        <span id="stars-container"></span><br>
-                    </h1>
+                    <div class="animated-text" id="text1">Turn Xero Invoices</div>
+                    <div class="animated-text" id="text2">Into Google Reviews</div>
+                    <div class="animated-text" id="text3">
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                    </div>
                 </div>
                 <p>
                     Exclusive for Xero customers with a Google Business Profile.
@@ -1225,49 +1229,47 @@
             });
         });
 
-        // --- New Hero Animation Logic ---
+        // --- Hero Animation Logic ---
         document.addEventListener('DOMContentLoaded', () => {
-            const starsContainer = document.getElementById('stars-container');
-            const heroText = document.querySelector('.text-scroll');
-            const lines = heroText.innerHTML.split('<br>');
-            const starsHTML = '<span class="hero-star">⭐</span>'.repeat(5);
+            const text1 = document.getElementById('text1');
+            const text2 = document.getElementById('text2');
+            const text3 = document.getElementById('text3');
+            const heroButtons = document.querySelector('.hero-buttons');
+            const stars = text3.querySelectorAll('.star');
 
-            heroText.innerHTML = lines[0]; // Start with the first line
-
-            // Animate stars
-            function animateStars() {
-                starsContainer.innerHTML = '';
-                const stars = starsHTML.split('</span>').slice(0, 5); // Ensure we have 5 star elements
-                stars.forEach((star, index) => {
-                    setTimeout(() => {
-                        starsContainer.innerHTML += star + '</span>';
-                    }, index * 200); // 200ms delay between each star
-                });
-            }
-
-            // Manually handle the text and star animation cycle
-            let cycleCount = 0;
-            const cycleDuration = 3000; // 3 seconds per line
-            const totalDuration = cycleDuration * 3; // 3 lines
-
-            function startAnimationCycle() {
-                heroText.style.animation = 'none';
+            // Animation sequence
+            function startAnimation() {
+                // Show first text
+                text1.classList.add('active');
+                
                 setTimeout(() => {
-                    heroText.style.animation = 'text-scroll-animation 10s infinite';
-                }, 10);
+                    // Hide first text, show second text
+                    text1.classList.remove('active');
+                    text2.classList.add('active');
+                }, 2000);
+                
+                setTimeout(() => {
+                    // Hide second text, show stars container
+                    text2.classList.remove('active');
+                    text3.classList.add('active');
+                    
+                    // Animate stars one by one
+                    stars.forEach((star, index) => {
+                        setTimeout(() => {
+                            star.style.animationDelay = '0s';
+                            star.style.opacity = '1';
+                        }, index * 200);
+                    });
+                }, 4000);
+                
+                setTimeout(() => {
+                    // Show buttons
+                    heroButtons.classList.add('show');
+                }, 6500);
             }
 
-            heroText.addEventListener('animationiteration', () => {
-                cycleCount++;
-                if (cycleCount % 3 === 2) { // The third item (stars)
-                    animateStars();
-                } else {
-                    starsContainer.innerHTML = '';
-                }
-            });
-
-            // Run on page load
-            startAnimationCycle();
+            // Start the animation
+            startAnimation();
         });
     </script>
 </body>
