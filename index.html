@@ -1,1179 +1,1193 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZEUS - Automate Your Google Reviews</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* General Body Styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #f9fafb; /* Light gray background like dashboard */
-            color: #1f2937; /* Dark gray for general text */
-            line-height: 1.5; /* Default line height */
-        }
-
-        /* Container for content width */
-        .container {
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        /* Header Content Width on Mobile */
-        @media (max-width: 767px) {
-            .container {
-                padding-left: 1.25rem; /* Slightly wider padding on mobile */
-                padding-right: 1.25rem; /* Slightly wider padding on mobile */
-            }
-        }
-
-        /* Header Styles */
-        .header {
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            padding: 0.25rem;
-            position: fixed; /* Lock the header */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000; /* Ensure it stays on top */
-        }
-
-        /* Add padding to body to prevent content from being hidden by fixed header */
-        body {
-            padding-top: 50px; /* Adjust based on your header's actual height */
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between; /* This handles logo far left and controls far right */
-            align-items: center;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .navbar {
-                padding-top: .5rem;
-                padding-bottom: .5rem;
-            }
-        }
-
-        /* Logo Styling - Using Lightning Icon like Dashboard */
-        .header-logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #1f2937;
-        }
-
-        .logo-icon {
-            width: 2rem;
-            height: 2rem;
-            color: #2563eb; /* Blue color like dashboard */
-            margin-right: 0.5rem;
-        }
-
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        @media (max-width: 767px) {
-            .logo-icon {
-                width: 1.75rem;
-                height: 1.75rem;
-            }
-            .logo-text {
-                font-size: 1.125rem;
-            }
-        }
-
-        /* Hamburger Button and Login Button Container */
-        .nav-controls {
-            display: flex;
-            align-items: center; /* Changed to center for better vertical alignment */
-            gap: 1rem;
-        }
-
-        /* Hamburger Button */
-        .hamburger-button {
-            display: block;
-            color: #4b5563;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-        }
-        .hamburger-button:hover {
-            color: #2563eb;
-        }
-        .hamburger-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px #2563eb;
-        }
-        .hamburger-button svg {
-            width: 1.5rem;
-            height: 1.5rem;
-        }
-
-        .desktop-nav {
-            display: none;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .desktop-nav li {
-            display: inline-block;
-            margin-left: 1.5rem;
-        }
-
-        .desktop-nav a {
-            color: #4b5563;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .desktop-nav a:hover {
-            color: #2563eb;
-        }
-
-        @media (min-width: 768px) {
-            .desktop-nav {
-                display: flex !important;
-                align-items: center;
-            }
-            .hamburger-button {
-                display: none !important;
-            }
-            .nav-controls .btn-login-desktop {
-                display: block;
-                color: #ffffff !important;
-            }
-            .nav-controls .btn-login-mobile {
-                display: none;
-            }
-        }
-
-        /* Mobile Menu */
-        #mobile-menu {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-            z-index: 999; /* Below the header, but above content */
-            list-style: none;
-            margin: 0;
-        }
-
-        #mobile-menu li {
-            width: 100%;
-        }
-
-        #mobile-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            text-align: right; /* Aligned to the right */
-            border-bottom: 1px solid #eee;
-            color: #374151;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        #mobile-menu a:hover {
-            color: #2563eb;
-        }
-
-        #mobile-menu li:last-child a {
-            border-bottom: none;
-        }
-
-        /* Show mobile menu when 'open' class is applied */
-        #mobile-menu.open {
-            display: flex;
-        }
-
-        @media (min-width: 768px) {
-            #mobile-menu {
-                display: none !important;
-            }
-        }
-
-        /* Hero Section - Updated to Light Background */
-        .hero-section {
-            background-color: #ffffff; /* Clean white background */
-            position: relative;
-            overflow: hidden;
-            min-height: 70vh; /* Reduced height from 90vh */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1f2937; /* Dark text on light background */
-            margin-top: -50px; /* Negative margin equal to header height */
-            padding-top: 100px; /* Add padding equal to header height to push content down */
-            box-sizing: border-box; /* Include padding in height calculation */
-        }
-        
-        .hero-content {
-            text-align: center;
-            padding: 2rem;
-            max-width: 40rem;
-            margin-left: 1rem;
-            margin-right: 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-content h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.25;
-            color: #1f2937;
-        }
-
-        @media (min-width: 640px) {
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-content h1 {
-                font-size: 3.75rem;
-            }
-        }
-
-        .hero-content p {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            color: #4b5563;
-        }
-
-        @media (min-width: 640px) {
-            .hero-content p {
-                font-size: 1.125rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-content p {
-                font-size: 1.25rem;
-            }
-        }
-
-        .hero-price-display {
-            font-size: 3rem; /* Matches pricing card .price */
-            font-weight: 800; /* Matches pricing card .price */
-            color: #2563eb; /* Blue color for price */
-            margin-bottom: 0.5rem; /* Consistent spacing */
-            line-height: 1; /* Consistent line height */
-            display: block; /* Ensures it takes its own line */
-        }
-
-        .hero-price-display span {
-            font-size: 1.25rem; /* Matches pricing card .price span */
-            font-weight: 400; /* Matches pricing card .price span */
-            color: #4b5563; /* Gray for the "/month" part */
-        }
-
-        .hero-frequency-info {
-            font-size: 1.125rem; /* Matches pricing card .frequency */
-            color: #6b7280; /* Gray for visibility */
-            margin-bottom: 1.5rem; /* Consistent spacing */
-            display: block; /* Ensures it takes its own line */
-        }
-
-        .hero-additional-info {
-            font-size: 1rem; /* Adjust if needed, or keep original price-info p size */
-            font-weight: 400;
-            color: #4b5563;
-            margin-top: 1rem; /* Adjust margin as needed after the price */
-            margin-bottom: 1.5rem;
-        }
-
-        @media (min-width: 640px) {
-            .hero-price-display {
-                font-size: 3.5rem;
-            }
-            .hero-price-display span {
-                font-size: 1.5rem;
-            }
-            .hero-frequency-info {
-                font-size: 1.25rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-price-display {
-                font-size: 4rem;
-            }
-            .hero-price-display span {
-                font-size: 1.75rem;
-            }
-            .hero-frequency-info {
-                font-size: 1.5rem;
-            }
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        @media (min-width: 640px) {
-            .hero-buttons {
-                flex-direction: row;
-            }
-        }
-
-        /* Hero Star Rating */
-        .hero-stars {
-            font-size: 2rem;
-            color: #fbbf24; /* Yellow/gold color for stars */
-            margin-bottom: 1rem;
-            line-height: 1;
-        }
-
-        @media (min-width: 640px) {
-            .hero-stars {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-stars {
-                font-size: 3rem;
-            }
-        }
-
-        /* Common Button Styles */
-        .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease-in-out;
-            transform: scale(1);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            cursor: pointer;
-            font-size: 1rem; /* Ensure consistent font size for all hero buttons */
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Primary Button */
-        .btn-primary {
-            background-color: #2563eb;
-            color: #ffffff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-        }
-
-        /* Secondary Button */
-        .btn-secondary {
-            background-color: #ffffff;
-            color: #000000;
-            border: 1px solid #e5e7eb;
-        }
-
-        .btn-secondary:hover {
-            background-color: #f9fafb;
-        }
-
-        /* Login Button specific styles (for header) */
-        .btn-login {
-            background-color: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            white-space: nowrap;
-        }
-
-        /* Smaller login button for mobile in header */
-        @media (max-width: 767px) {
-            .btn-login-mobile {
-                padding: 0.5rem 1rem; /* Adjusted padding to ensure text centering */
-                font-size: 1rem; /* Adjusted font size for better visual balance */
-            }
-        }
-
-        .btn-login:hover {
-            background-color: #1d4ed8;
-            transform: scale(1.05);
-        }
-
-        /* Hide desktop login button on mobile */
-        .btn-login-desktop {
-            display: none;
-        }
-
-        /* Show mobile login button on mobile, hide on desktop */
-        .btn-login-mobile {
-            display: block;
-        }
-
-        @media (min-width: 768px) {
-            .btn-login-desktop {
-                display: block;
-                color: #ffffff !important; /* Sets the font color to white for the desktop login button and ensures it overrides. */
-            }
-            .btn-login-mobile {
-                display: none;
-            }
-        }
-
-        /* Hero Section Buttons Height Consistency (Mobile Only) */
-        @media (max-width: 639px) { /* Targeting mobile devices below 640px */
-            .hero-buttons .btn-primary {
-                padding-top: calc(0.75rem - 1px); /* Reduce padding by border width */
-                padding-bottom: calc(0.75rem - 1px); /* Reduce padding by border width */
-            }
-            .hero-buttons .btn-secondary {
-                /* Keep original padding, as its 1px border will now make it match the primary's adjusted padding */
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-        }
-
-        /* Section Styling */
-        .section-padding {
-            padding-top: 4rem;
-            padding-bottom: 4rem;
-        }
-
-        .bg-white {
-            background-color: #ffffff;
-        }
-
-        .bg-gray-100 {
-            background-color: #f9fafb; /* Match dashboard background */
-        }
-
-        .section-title {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 8px;
-            font-size: 1.875rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            margin-left: auto;
-            margin-right: auto;
-            width: fit-content;
-        }
-
-        @media (min-width: 640px) {
-            .section-title {
-                font-size: 2.25rem;
-            }
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 4px;
-            background-color: #2563eb;
-            border-radius: 2px;
-        }
-
-        /* Product, Solutions, Features common styles */
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: left;
-            text-align: left;
-        }
-
-        @media (min-width: 768px) {
-            .content-section {
-                flex-direction: row;
-                text-align: left;
-            }
-            .content-section.reverse {
-                flex-direction: row-reverse;
-            }
-        }
-
-        .content-image-col, .content-text-col {
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .content-image-col, .content-text-col {
-                width: 50%;
-            }
-        }
-
-        .content-image {
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            height: auto;
-        }
-
-        .content-text-col h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #1f2937;
-        }
-
-        .content-text-col p {
-            font-size: 1rem;
-            color: #4b5563;
-            margin-bottom: 1rem;
-        }
-
-        .content-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 1rem;
-        }
-
-        .content-list li {
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-            font-size: 1rem;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .content-list li::before {
-            content: '✔️';
-            margin-right: 0.5rem;
-            color: #2563eb;
-            font-weight: bold;
-        }
-
-        /* Solutions specific styles (grid for cards) - Renamed for clarity in combined section */
-        .how-it-works-cards {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2rem;
-            margin-top: 3rem; /* Added margin to separate from the top content */
-        }
-
-        @media (min-width: 640px) {
-            .how-it-works-cards {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .how-it-works-cards {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
-        .how-it-works-card {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            border-top: 4px solid #2563eb;
-        }
-
-        .how-it-works-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-
-        .how-it-works-card p {
-            font-size: 0.95rem;
-            color: #4b5563;
-        }
-
-        /* Features specific styles (similar to services grid) */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 640px) {
-            .features-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .features-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
-        .feature-item {
-            background-color: #ffffff;
-            padding: 1.25rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            text-align: left;
-        }
-
-        .feature-item .icon {
-            color: #2563eb;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .feature-item h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: #1f2937;
-        }
-
-        .feature-item p {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-
-        /* Pricing Section */
-        .pricing-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .pricing-card {
-            background-color: #ffffff;
-            padding: 2.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-            border: 2px solid #2563eb;
-        }
-
-        .pricing-card h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #2563eb;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-card .price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-
-        .pricing-card .price span {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #4b5563;
-        }
-
-        .pricing-card .frequency {
-            font-size: 1.125rem;
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-card ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .pricing-card ul li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            font-size: 1rem;
-            color: #4b5563;
-        }
-
-        .pricing-card ul li::before {
-            content: '✅';
-            margin-right: 0.75rem;
-            color: #10b981;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ Section */
-        .faq-item {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .faq-question {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #1f2937;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-right: 1rem; /* Space for arrow */
-        }
-
-        .faq-question:hover {
-            color: #2563eb;
-        }
-
-        .faq-question .arrow {
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-question.active .arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            font-size: 0.95rem;
-            color: #4b5563;
-            margin-top: 1rem;
-            display: none; /* Hidden by default */
-            padding-left: 0.5rem;
-            border-left: 3px solid #2563eb;
-        }
-
-        .faq-answer.open {
-            display: block;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background-color: #1f2937;
-            color: #ffffff;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .footer .container {
-            text-align: center;
-        }
-
-        /* --- Logo Banner Styles --- */
-        .logo-banner {
-            background-color: #ffffff; /* Changed from default grey to white */
-            padding: 2rem 0;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .logo-banner .container {
-            /* Remove any background styling that might add grey */
-            background: none;
-        }
-
-        .logo-scroll-track {
-            display: inline-block;
-            animation: scroll-logos 25s linear infinite;
-        }
-
-        .logo-scroll-track img {
-            height: 40px; /* Adjust logo height as needed */
-            margin: 0 2rem;
-            vertical-align: middle;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-        }
-
-        .logo-scroll-track img:hover {
-            opacity: 1;
-        }
-
-        @keyframes scroll-logos {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Duplicate the track to create the seamless loop */
-        .logo-scroll-track.duplicate {
-            position: absolute;
-            top: 2rem;
-            left: 100%;
-        }
-
-        /* Media Queries for different logo heights on different screen sizes */
-        @media (max-width: 767px) {
-            .logo-scroll-track img {
-                height: 30px;
-                margin: 0 1.5rem;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZEUS - Automate Your Google Reviews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9fafb; /* Light gray background like dashboard */
+            color: #1f2937; /* Dark gray for general text */
+            line-height: 1.5; /* Default line height */
+        }
+
+        /* Container for content width */
+        .container {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Header Content Width on Mobile */
+        @media (max-width: 767px) {
+            .container {
+                padding-left: 1.25rem; /* Slightly wider padding on mobile */
+                padding-right: 1.25rem; /* Slightly wider padding on mobile */
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            padding: 0.25rem;
+            position: fixed; /* Lock the header */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure it stays on top */
+        }
+
+        /* Add padding to body to prevent content from being hidden by fixed header */
+        body {
+            padding-top: 50px; /* Adjust based on your header's actual height */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between; /* This handles logo far left and controls far right */
+            align-items: center;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .navbar {
+                padding-top: .5rem;
+                padding-bottom: .5rem;
+            }
+        }
+
+        /* Logo Styling - Using Lightning Icon like Dashboard */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1f2937;
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            color: #2563eb; /* Blue color like dashboard */
+            margin-right: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        @media (max-width: 767px) {
+            .logo-icon {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+            .logo-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* Hamburger Button and Login Button Container */
+        .nav-controls {
+            display: flex;
+            align-items: center; /* Changed to center for better vertical alignment */
+            gap: 1rem;
+        }
+
+        /* Hamburger Button */
+        .hamburger-button {
+            display: block;
+            color: #4b5563;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        .hamburger-button:hover {
+            color: #2563eb;
+        }
+        .hamburger-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #2563eb;
+        }
+        .hamburger-button svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .desktop-nav {
+            display: none;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .desktop-nav li {
+            display: inline-block;
+            margin-left: 1.5rem;
+        }
+
+        .desktop-nav a {
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-nav a:hover {
+            color: #2563eb;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex !important;
+                align-items: center;
+            }
+            .hamburger-button {
+                display: none !important;
+            }
+            .nav-controls .btn-login-desktop {
+                display: block;
+                color: #ffffff !important;
+            }
+            .nav-controls .btn-login-mobile {
+                display: none;
+            }
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            z-index: 999; /* Below the header, but above content */
+            list-style: none;
+            margin: 0;
+        }
+
+        #mobile-menu li {
+            width: 100%;
+        }
+
+        #mobile-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-align: right; /* Aligned to the right */
+            border-bottom: 1px solid #eee;
+            color: #374151;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        #mobile-menu a:hover {
+            color: #2563eb;
+        }
+
+        #mobile-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        /* Show mobile menu when 'open' class is applied */
+        #mobile-menu.open {
+            display: flex;
+        }
+
+        @media (min-width: 768px) {
+            #mobile-menu {
+                display: none !important;
+            }
+        }
+
+        /* Hero Section - Updated to Light Background */
+        .hero-section {
+            background-color: #ffffff; /* Clean white background */
+            position: relative;
+            overflow: hidden;
+            min-height: 70vh; /* Reduced height from 90vh */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1f2937; /* Dark text on light background */
+            margin-top: -50px; /* Negative margin equal to header height */
+            padding-top: 100px; /* Add padding equal to header height to push content down */
+            box-sizing: border-box; /* Include padding in height calculation */
+        }
+        
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 40rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.25;
+            color: #1f2937;
+        }
+
+        @media (min-width: 640px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 3.75rem;
+            }
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: #4b5563;
+        }
+
+        @media (min-width: 640px) {
+            .hero-content p {
+                font-size: 1.125rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-content p {
+                font-size: 1.25rem;
+            }
+        }
+
+        .hero-price-display {
+            font-size: 3rem; /* Matches pricing card .price */
+            font-weight: 800; /* Matches pricing card .price */
+            color: #2563eb; /* Blue color for price */
+            margin-bottom: 0.5rem; /* Consistent spacing */
+            line-height: 1; /* Consistent line height */
+            display: block; /* Ensures it takes its own line */
+        }
+
+        .hero-price-display span {
+            font-size: 1.25rem; /* Matches pricing card .price span */
+            font-weight: 400; /* Matches pricing card .price span */
+            color: #4b5563; /* Gray for the "/month" part */
+        }
+
+        .hero-frequency-info {
+            font-size: 1.125rem; /* Matches pricing card .frequency */
+            color: #6b7280; /* Gray for visibility */
+            margin-bottom: 1.5rem; /* Consistent spacing */
+            display: block; /* Ensures it takes its own line */
+        }
+
+        .hero-additional-info {
+            font-size: 1rem; /* Adjust if needed, or keep original price-info p size */
+            font-weight: 400;
+            color: #4b5563;
+            margin-top: 1rem; /* Adjust margin as needed after the price */
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-price-display {
+                font-size: 3.5rem;
+            }
+            .hero-price-display span {
+                font-size: 1.5rem;
+            }
+            .hero-frequency-info {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-price-display {
+                font-size: 4rem;
+            }
+            .hero-price-display span {
+                font-size: 1.75rem;
+            }
+            .hero-frequency-info {
+                font-size: 1.5rem;
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        /* Hero Star Rating */
+        .hero-stars {
+            font-size: 2rem;
+            color: #fbbf24; /* Yellow/gold color for stars */
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        @media (min-width: 640px) {
+            .hero-stars {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-stars {
+                font-size: 3rem;
+            }
+        }
+
+        /* Common Button Styles */
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 1rem; /* Ensure consistent font size for all hero buttons */
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Secondary Button */
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Login Button specific styles (for header) */
+        .btn-login {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            white-space: nowrap;
+        }
+
+        /* Smaller login button for mobile in header */
+        @media (max-width: 767px) {
+            .btn-login-mobile {
+                padding: 0.5rem 1rem; /* Adjusted padding to ensure text centering */
+                font-size: 1rem; /* Adjusted font size for better visual balance */
+            }
+        }
+
+        .btn-login:hover {
+            background-color: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        /* Hide desktop login button on mobile */
+        .btn-login-desktop {
+            display: none;
+        }
+
+        /* Show mobile login button on mobile, hide on desktop */
+        .btn-login-mobile {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .btn-login-desktop {
+                display: block;
+                color: #ffffff !important; /* Sets the font color to white for the desktop login button and ensures it overrides. */
+            }
+            .btn-login-mobile {
+                display: none;
+            }
+        }
+
+        /* Hero Section Buttons Height Consistency (Mobile Only) */
+        @media (max-width: 639px) { /* Targeting mobile devices below 640px */
+            .hero-buttons .btn-primary {
+                padding-top: calc(0.75rem - 1px); /* Reduce padding by border width */
+                padding-bottom: calc(0.75rem - 1px); /* Reduce padding by border width */
+            }
+            .hero-buttons .btn-secondary {
+                /* Keep original padding, as its 1px border will now make it match the primary's adjusted padding */
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+        }
+
+        /* Section Styling */
+        .section-padding {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .bg-gray-100 {
+            background-color: #f9fafb; /* Match dashboard background */
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+            font-size: 1.875rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+
+        @media (min-width: 640px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 4px;
+            background-color: #2563eb;
+            border-radius: 2px;
+        }
+
+        /* Product, Solutions, Features common styles */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: left;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .content-section {
+                flex-direction: row;
+                text-align: left;
+            }
+            .content-section.reverse {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .content-image-col, .content-text-col {
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .content-image-col, .content-text-col {
+                width: 50%;
+            }
+        }
+
+        .content-image {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            height: auto;
+        }
+
+        .content-text-col h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .content-text-col p {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .content-list li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-size: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .content-list li::before {
+            content: '✔️';
+            margin-right: 0.5rem;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* Solutions specific styles (grid for cards) - Renamed for clarity in combined section */
+        .how-it-works-cards {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 2rem;
+            margin-top: 3rem; /* Added margin to separate from the top content */
+        }
+
+        @media (min-width: 640px) {
+            .how-it-works-cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .how-it-works-cards {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .how-it-works-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            border-top: 4px solid #2563eb;
+        }
+
+        .how-it-works-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+
+        .how-it-works-card p {
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        /* Features specific styles (similar to services grid) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .feature-item {
+            background-color: #ffffff;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .feature-item .icon {
+            color: #2563eb;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1f2937;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* Pricing Section */
+        .pricing-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 2px solid #2563eb;
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .pricing-card .price span {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #4b5563;
+        }
+
+        .pricing-card .frequency {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        .pricing-card ul li::before {
+            content: '✅';
+            margin-right: 0.75rem;
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .faq-question {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 1rem; /* Space for arrow */
+        }
+
+        .faq-question:hover {
+            color: #2563eb;
+        }
+
+        .faq-question .arrow {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            font-size: 0.95rem;
+            color: #4b5563;
+            margin-top: 1rem;
+            display: none; /* Hidden by default */
+            padding-left: 0.5rem;
+            border-left: 3px solid #2563eb;
+        }
+
+        .faq-answer.open {
+            display: block;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #1f2937;
+            color: #ffffff;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .footer .container {
+            text-align: center;
+        }
+
+        /* --- Logo Banner Styles --- */
+        .logo-banner {
+            background-color: #ffffff; /* Changed from default grey to white */
+            padding: 2rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .logo-banner .container {
+            /* Remove any background styling that might add grey */
+            background: none;
+        }
+
+        .logo-scroll-track {
+            display: inline-block;
+            animation: scroll-logos 25s linear infinite;
+        }
+
+        .logo-scroll-track img {
+            height: 40px; /* Adjust logo height as needed */
+            margin: 0 2rem;
+            vertical-align: middle;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-scroll-track img:hover {
+            opacity: 1;
+        }
+
+        @keyframes scroll-logos {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Duplicate the track to create the seamless loop */
+        .logo-scroll-track.duplicate {
+            position: absolute;
+            top: 2rem;
+            left: 100%;
+        }
+
+        /* Media Queries for different logo heights on different screen sizes */
+        @media (max-width: 767px) {
+            .logo-scroll-track img {
+                height: 30px;
+                margin: 0 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="header">
-        <nav class="navbar container">
-            <a href="#" class="header-logo">
-                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                <span class="logo-text">ZEUS</span>
-            </a>
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="header-logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <span class="logo-text">ZEUS</span>
+            </a>
 
-            <div class="nav-controls">
-                <a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-mobile">Sign in</a>
-                <button id="hamburger-button" class="hamburger-button btn-login-mobile">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
+            <div class="nav-controls">
+                <a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-mobile">Sign in</a>
+                <button id="hamburger-button" class="hamburger-button btn-login-mobile">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
 
-            <ul class="desktop-nav">
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign in</a></li>
-                <li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
-            </ul>
-        </nav>
+            <ul class="desktop-nav">
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign in</a></li>
+                <li><a href="https://app.zeusreviews.com/login" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
+            </ul>
+        </nav>
 
-        <ul id="mobile-menu">
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign In</a></li>
-            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
-        </ul>
-    </header>
+        <ul id="mobile-menu">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Sign In</a></li>
+            <li><a href="https://dashboard.zeusapp.co" class="btn btn-login btn-login-desktop">Get Started For Free</a></li>
+        </ul>
+    </header>
 
-    <main>
-        <section class="hero-section">
-            <div class="hero-content">
-                <h1>Turn Xero Invoices<br>Into Google Reviews</h1>
-                <div class="hero-stars">⭐⭐⭐⭐⭐</div>
-                <p>
-                    Exclusive for Xero customers with a Google Business Profile.
-                </p>
-                
-                <div class="hero-buttons">
-                    <a href="https://app.zeusreviews.com/login" class="btn btn-primary">
-                        Get Started For Free →
-                    </a>
-                </div>
-            </div>
-        </section>
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-stars">⭐⭐⭐⭐⭐</div>
+                <h1>
+                    Need more<br>Google reviews?
+                </h1>
+                <p>
+                    Welcome to the power of **ZEUS!** An exclusive tool for Australian businesses that use Xero and have a Google Business Profile.
+                </p>
+                <p style="font-weight: 700;">“Ugh… another monthly subscription?"<br>Absolutely NOT!</p>
+                <p>
+                    No lock-in contracts, no monthly renewals, no infuriating account team constantly trying to upsell you.
+                </p>
+                <p style="font-weight: 700; margin-bottom: 0.5rem;">Getting started is easy:</p>
+                <ul style="list-style-type: none; padding: 0; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 0.5rem;">- Sign up with your Google account.</li>
+                    <li style="margin-bottom: 0.5rem;">- Connect your Xero account.</li>
+                    <li>- When a customer pays you, ZEUS automatically sends an SMS review request.</li>
+                </ul>
+                <p style="font-weight: 700; margin-bottom: 0.5rem;">
+                    You pay just 25 cents per SMS… It's that simple.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="https://app.zeusreviews.com/login" class="btn btn-primary">
+                        Get Started For Free →
+                    </a>
+                </div>
+            </div>
+        </section>
 
-        <section class="logo-banner">
-            <div class="container">
-                <div class="logo-scroll-track">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
-                </div>
-                <div class="logo-scroll-track duplicate">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
-                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
-                </div>
-            </div>
-        </section>
-        
-        <section id="how-it-works" class="section-padding bg-white">
-            <div class="container">
-                <h2 class="section-title">How It Works</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Zeus is built exclusively for Xero users who want more Google reviews without the manual follow-up.</p>
+        <section class="logo-banner">
+            <div class="container">
+                <div class="logo-scroll-track">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
+            </div>
+                <div class="logo-scroll-track duplicate">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Cellcast_idNjzpmtOS_0.png?raw=true" alt="Cellcast Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Google_Logo_1.png?raw=true" alt="Google Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Stripe_Logo_1.png?raw=true" alt="Stripe Logo">
+                    <img src="https://github.com/mmp03patane/ZEUS/blob/main/Xero_idfmk3Fzbf_1.png?raw=true" alt="Xero Logo">
+                </div>
+            </div>
+        </section>
+        
+        <section id="how-it-works" class="section-padding bg-white">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Zeus is built exclusively for Xero users who want more Google reviews without the manual follow-up.</p>
 
-                <div class="how-it-works-cards">
-                    <div class="how-it-works-card">
-                        <h3>1. Connect in Minutes</h3>
-                        <p>Securely link your Xero account and Google Business Profile to Zeus. It's a quick, one-time setup that takes just a few minutes.</p>
-                    </div>
-                    <div class="how-it-works-card">
-                        <h3>2. Trigger on Payment</h3>
-                        <p>Whenever you mark an invoice as 'Paid' in Xero, Zeus instantly detects the change and automatically sends a personalized review request to your customer via SMS.</p>
-                    </div>
-                    <div class="how-it-works-card">
-                        <h3>3. Collect Reviews on Autopilot</h3>
-                        <p>The customer receives the SMS, taps the direct link, and is taken straight to your Google review page. It's a frictionless process that makes getting 5-star feedback easy.</p>
-                    </div>
-                </div>
+                <div class="how-it-works-cards">
+                    <div class="how-it-works-card">
+                        <h3>1. Connect in Minutes</h3>
+                        <p>Securely link your Xero account and Google Business Profile to Zeus. It's a quick, one-time setup that takes just a few minutes.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>2. Trigger on Payment</h3>
+                        <p>Whenever you mark an invoice as 'Paid' in Xero, Zeus instantly detects the change and automatically sends a personalized review request to your customer via SMS.</p>
+                    </div>
+                    <div class="how-it-works-card">
+                        <h3>3. Collect Reviews on Autopilot</h3>
+                        <p>The customer receives the SMS, taps the direct link, and is taken straight to your Google review page. It's a frictionless process that makes getting 5-star feedback easy.</p>
+                    </div>
+                </div>
 
-                <div style="text-align: center; margin-top: 3rem;">
-                    <a href="#pricing" class="btn btn-primary">
-                        Ready to Get Started?
-                    </a>
-                </div>
-                
-            </div>
-        </section>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="#pricing" class="btn btn-primary">
+                        Ready to Get Started?
+                    </a>
+                </div>
+                
+            </div>
+        </section>
 
-        <section id="features" class="section-padding bg-gray-100">
-            <div class="container">
-                <h2 class="section-title">Features</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Explore the powerful capabilities of ZEUS that make review collection effortless and effective.</p>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <span class="icon">📩</span>
-                        <div>
-                            <h4>Automated SMS Review Requests</h4>
-                            <p>Every paid invoice in Xero triggers a personalised SMS inviting your customer to review you on Google.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📊</span>
-                        <div>
-                            <h4>Live Review Tracking</h4>
-                            <p>See your incoming Google reviews in real time from your Zeus dashboard.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">⚡</span>
-                        <div>
-                            <h4>Instant Xero Integration</h4>
-                            <p>Seamlessly connects with your Xero account using webhooks to detect when invoices are marked as paid in real-time.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📞</span>
-                        <div>
-                            <h4>Smart Phone Number Detection</h4>
-                            <p>Automatically extracts and formats customer phone numbers from your Xero contacts for reliable SMS delivery.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📍</span>
-                        <div>
-                            <h4>Direct Google Link</h4>
-                            <p>One tap takes customers straight to your Google review form — no searching required.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔒</span>
-                        <div>
-                            <h4>Secure & Compliant</h4>
-                            <p>Your customer data is safe and handled to strict privacy standards with enterprise-grade security.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="features" class="section-padding bg-gray-100">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Explore the powerful capabilities of ZEUS that make review collection effortless and effective.</p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="icon">📩</span>
+                        <div>
+                            <h4>Automated SMS Review Requests</h4>
+                            <p>Every paid invoice in Xero triggers a personalised SMS inviting your customer to review you on Google.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">📊</span>
+                        <div>
+                            <h4>Live Review Tracking</h4>
+                            <p>See your incoming Google reviews in real time from your Zeus dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">⚡</span>
+                        <div>
+                            <h4>Instant Xero Integration</h4>
+                            <p>Seamlessly connects with your Xero account using webhooks to detect when invoices are marked as paid in real-time.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">📞</span>
+                        <div>
+                            <h4>Smart Phone Number Detection</h4>
+                            <p>Automatically extracts and formats customer phone numbers from your Xero contacts for reliable SMS delivery.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">📍</span>
+                        <div>
+                            <h4>Direct Google Link</h4>
+                            <p>One tap takes customers straight to your Google review form — no searching required.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🔒</span>
+                        <div>
+                            <h4>Secure & Compliant</h4>
+                            <p>Your customer data is safe and handled to strict privacy standards with enterprise-grade security.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="pricing" class="section-padding bg-white">
-            <div class="container">
-                <h2 class="section-title">Pricing</h2>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Simple, transparent pricing to help your business grow without hidden fees.</p>
-                <div class="pricing-content">
-                    <div class="pricing-card">
-                        <h3>Growth Plan</h3>
-                        
-                        <ul>
-                            <li>Automated SMS Review Requests (linked to paid Xero invoices)</li>
-                            <li>Real-Time Review Tracking</li>
-                            <li>Instant Xero Webhook Integration</li>
-                            <li>Smart Phone Number Detection</li>
-                            <li>Direct Google My Business Integration</li>
-                            <li>Dedicated Support</li>
-                            <li>No Lock-In Contracts</li>
-                        </ul>
-                        <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Start Your Free Setup →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="pricing" class="section-padding bg-white">
+            <div class="container">
+                <h2 class="section-title">Pricing</h2>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: #4b5563;">Simple, transparent pricing to help your business grow without hidden fees.</p>
+                <div class="pricing-content">
+                    <div class="pricing-card">
+                        <h3>Growth Plan</h3>
+                        
+                        <ul>
+                            <li>Automated SMS Review Requests (linked to paid Xero invoices)</li>
+                            <li>Real-Time Review Tracking</li>
+                            <li>Instant Xero Webhook Integration</li>
+                            <li>Smart Phone Number Detection</li>
+                            <li>Direct Google My Business Integration</li>
+                            <li>Dedicated Support</li>
+                            <li>No Lock-In Contracts</li>
+                        </ul>
+                        <a href="https://app.zeusreviews.com/login" class="btn btn-primary">Start Your Free Setup →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="faq" class="section-padding bg-gray-100">
-            <div class="container">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            How does Zeus get me more Google reviews?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Every time you mark an invoice as Paid in Xero, Zeus automatically detects this change through secure webhooks and sends an SMS with a direct link to your Google review page. This removes all friction and makes it incredibly easy for customers to leave feedback, which dramatically boosts your response rates.</p>
-                        </div>
-                    </div>
+        <section id="faq" class="section-padding bg-gray-100">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How does Zeus get me more Google reviews?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Every time you mark an invoice as Paid in Xero, Zeus automatically detects this change through secure webhooks and sends an SMS with a direct link to your Google review page. This removes all friction and makes it incredibly easy for customers to leave feedback, which dramatically boosts your response rates.</p>
+                        </div>
+                    </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            Do I need anything other than Xero?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes — Zeus is designed exclusively for Xero users. You will also need an active Google Business Profile and your customers need to have phone numbers stored in your Xero contacts for SMS delivery to work.</p>
-                        </div>
-                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do I need anything other than Xero?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes — Zeus is designed exclusively for Xero users. You will also need an active Google Business Profile and your customers need to have phone numbers stored in your Xero contacts for SMS delivery to work.</p>
+                        </div>
+                    </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            What if my customer doesn't have a phone number in Xero?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Zeus will simply skip sending an SMS for that invoice. We recommend ensuring your Xero contacts have phone numbers for the best results. You can always add phone numbers to existing contacts and future invoices will trigger SMS requests.</p>
-                        </div>
-                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What if my customer doesn't have a phone number in Xero?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Zeus will simply skip sending an SMS for that invoice. We recommend ensuring your Xero contacts have phone numbers for the best results. You can always add phone numbers to existing contacts and future invoices will trigger SMS requests.</p>
+                        </div>
+                    </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            What if a customer leaves a negative review?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>You'll get notified instantly through your Zeus dashboard, so you can respond quickly and professionally on your Google Business Profile. While Zeus focuses on encouraging positive reviews, we believe that responding to all feedback, both good and bad, is crucial for building trust.</p>
-                        </div>
-                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What if a customer leaves a negative review?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You'll get notified instantly through your Zeus dashboard, so you can respond quickly and professionally on your Google Business Profile. While Zeus focuses on encouraging positive reviews, we believe that responding to all feedback, both good and bad, is crucial for building trust.</p>
+                        </div>
+                    </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            Is there a long-term contract?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>No. Our service is month-to-month, and you can cancel anytime, no questions asked. We're confident in the value we provide, so we don't believe in lock-in contracts.</p>
-                        </div>
-                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there a long-term contract?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. Our service is month-to-month, and you can cancel anytime, no questions asked. We're confident in the value we provide, so we don't believe in lock-in contracts.</p>
+                        </div>
+                    </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            How soon will I see results?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Most customers start seeing new reviews within the first week of setting up Zeus. The more invoices you mark as paid, the more review requests are automatically generated, leading to faster results.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How soon will I see results?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Most customers start seeing new reviews within the first week of setting up Zeus. The more invoices you mark as paid, the more review requests are automatically generated, leading to faster results.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="contact" class="section-padding bg-white">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title">Contact Us</h2>
-                <p style="margin-bottom: 2rem; font-size: 1.1rem; color: #4b5563;">Have more questions or ready to get started? Reach out to us!</p>
-                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb;">Email: <a href="mailto:info@zeusreviews.com" style="color: #2563eb; text-decoration: none;">info@zeusreviews.com</a></p>
-                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb; margin-top: 1rem;">Phone: <a href="tel:+61412345678" style="color: #2563eb; text-decoration: none;">+61 412 345 678</a></p>
-            </div>
-        </section>
+        <section id="contact" class="section-padding bg-white">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-title">Contact Us</h2>
+                <p style="margin-bottom: 2rem; font-size: 1.1rem; color: #4b5563;">Have more questions or ready to get started? Reach out to us!</p>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb;">Email: <a href="mailto:info@zeusreviews.com" style="color: #2563eb; text-decoration: none;">info@zeusreviews.com</a></p>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #2563eb; margin-top: 1rem;">Phone: <a href="tel:+61412345678" style="color: #2563eb; text-decoration: none;">+61 412 345 678</a></p>
+            </div>
+        </section>
 
-    </main>
+    </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 ZEUS. All rights reserved.</p>
-            <p style="margin-top: 0.5rem;"><a href="https://zeusapp.co/privacypolicy" target="_blank" rel="noopener noreferrer" style="color: #ffffff; text-decoration: none;">Privacy Policy</a></p>
-        </div>
-    </footer>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ZEUS. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;"><a href="https://zeusapp.co/privacypolicy" target="_blank" rel="noopener noreferrer" style="color: #ffffff; text-decoration: none;">Privacy Policy</a></p>
+        </div>
+    </footer>
 
-    <script>
-        // --- Mobile Navigation Toggle ---
-        const hamburgerButton = document.getElementById('hamburger-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+    <script>
+        // --- Mobile Navigation Toggle ---
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        hamburgerButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-        });
+        hamburgerButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
 
-        // Close mobile menu when a link is clicked
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
 
-        // --- Smooth Scrolling for Navigation Links ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // --- Smooth Scrolling for Navigation Links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
 
-                if (targetElement) {
-                    const headerOffset = document.querySelector('.header').offsetHeight; // Get height of fixed header
-                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = elementPosition - headerOffset;
+                if (targetElement) {
+                    const headerOffset = document.querySelector('.header').offsetHeight; // Get height of fixed header
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerOffset;
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
 
-        // --- FAQ Accordion Logic ---
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const arrow = question.querySelector('.arrow');
+        // --- FAQ Accordion Logic ---
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const arrow = question.querySelector('.arrow');
 
-                // Close other open answers
-                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
-                    if (openAnswer !== answer) {
-                        openAnswer.classList.remove('open');
-                        openAnswer.previousElementSibling.classList.remove('active');
-                    }
-                });
+                // Close other open answers
+                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                    if (openAnswer !== answer) {
+                        openAnswer.classList.remove('open');
+                        openAnswer.previousElementSibling.classList.remove('active');
+                    }
+                });
 
-                // Toggle current answer
-                answer.classList.toggle('open');
-                question.classList.toggle('active');
-            });
-        });
-    </script>
+                // Toggle current answer
+                answer.classList.toggle('open');
+                question.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
